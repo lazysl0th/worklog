@@ -18,7 +18,6 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: ['./backend/tsconfig.json', './frontend/tsconfig.json'],
       },
     },
     plugins: {
@@ -52,6 +51,24 @@ export default [
           alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],
+    },
+  },
+
+  {
+    files: ['backend/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+  },
+
+  {
+    files: ['frontend/**/*.ts', 'frontend/**/*.tsx'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
     },
   },
 
