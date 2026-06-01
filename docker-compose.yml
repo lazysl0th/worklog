@@ -1,0 +1,38 @@
+services:
+  postgres_db:
+    image: postgres:17-alpine
+    container_name: worklog_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: worklog_db
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - worklog_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: worklog_backend
+    restart: always
+    ports:
+      - '5001:5000'
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:root@postgres_db:5432/worklog_db?schema=public
+    depends_on:
+      - postgres_db
+    networks:
+      - worklog_network
+
+volumes:
+  pgdata:
+
+networks:
+  worklog_network:
+    driver: bridge

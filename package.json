@@ -10,7 +10,8 @@
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "check": "npm run lint && npm run format",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "mkdir -p dist && echo 'console.log(\"Hello from Worklog Backend\")' > dist/index.js"
   },
   "config": {
     "commitizen": {
