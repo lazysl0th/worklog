@@ -1,17 +1,37 @@
+FROM node:26-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+COPY backend/package*.json ./backend/
+COPY frontend/package*.json ./frontend/
+
+RUN npm ci --ignore-scripts
+
+COPY backend/tsconfig.json ./backend/
+COPY backend/src ./backend/src
+
+RUN npm run build -w backend
+
+
 FROM node:26-alpine AS runner
 
-WORKDIR /app/backend
+WORKDIR /app
 
-RUN mkdir -p dist && echo 'const http = require("http"); \
-const server = http.createServer((req, res) => { \
-  res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" }); \
-  res.end("🚀 Бэкенд-заглушка на Render работает и слушает порт!"); \
-}); \
-const port = process.env.PORT || 5000; \
-server.listen(port, () => { \
-  console.log(`🚀 Сервер запущен на порту ${port}`); \
-});' > dist/index.js
+COPY package*.json ./
+COPY backend/package*.json ./backend/
+COPY frontend/package*.json ./frontend/
 
-EXPOSE 5000
+RUN npm ci --omit=dev --ignore-scripts
 
-CMD ["node", "dist/index.js"]
+COPY --from=builder /app/backend/dist ./backend/dist
+COPY --from=builder /app/backend/src/infrastructure/services/i18n/locales ./backend/dist/infrastructure/services/i18n/locales
+
+ENV NODE_ENV=production
+ENV PORT=3001
+
+EXPOSE 3001
+
+# Запуск приложения из корня
+CMD ["node", "backend/dist/index.js"]

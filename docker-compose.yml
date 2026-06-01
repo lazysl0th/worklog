@@ -16,12 +16,12 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./backend/Dockerfile
     container_name: worklog_backend
     restart: always
     ports:
-      - '5001:5000'
+      - '3001:3001'
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgresql://postgres:root@postgres_db:5432/worklog_db?schema=public
@@ -32,8 +32,8 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./frontend/Dockerfile
     ports:
       - '3000:80'
     restart: always

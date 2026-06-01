@@ -1,0 +1,11 @@
+import type ILogger from '#/application/interfaces/logger/ILogger.js';
+
+export class ConsoleLogger implements ILogger {
+  error(meta: Record<string, unknown>, message: string): void {
+    console.error(message, meta);
+  }
+
+  info(message: string): void {
+    console.info(message);
+  }
+}
