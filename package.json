@@ -1,7 +1,7 @@
 {
   "name": "worklog",
   "version": "1.0.0",
-  "description": "Тестовое задание для автоматизации учета и контроля строительных работ.",
+  "description": "Worklog application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,10 +9,19 @@
     "release": "standard-version",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
-    "check": "npm run lint && npm run format",
+    "check": "npm run infra:check && npm run lint && npm run format",
     "prepare": "husky",
-    "build": "mkdir -p dist && echo 'console.log(\"Hello from Worklog Backend\")' > dist/index.js"
+    "build": "mkdir -p dist && echo 'console.log(\"Hello from Worklog Backend\")' > dist/index.js",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "infra:clean": "docker compose down -v",
+    "infra:check": "docker compose ps --filter 'status=running' | grep -q 'postgres' && echo '✅ Infrastructure is OK' || (echo '❌ Infrastructure is DOWN' && exit 1)"
   },
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
