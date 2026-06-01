@@ -30,6 +30,14 @@ services:
     networks:
       - worklog_network
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    restart: always
+
 volumes:
   pgdata:
 
