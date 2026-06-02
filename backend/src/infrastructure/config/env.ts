@@ -7,6 +7,7 @@ const env = {
   DATABASE_URL:
     process.env.DATABASE_URL ??
     'postgresql://postgres:root@localhost:5433/worklog_db?schema=public',
+  FRONTEND_URL: process.env.FRONTEND_URL ?? 'http://localhost:3000',
 };
 
 const config: TConfig = envSchema.parse(env);

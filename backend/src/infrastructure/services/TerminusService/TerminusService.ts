@@ -2,7 +2,7 @@ import { HealthCheckError, type TerminusOptions } from '@godaddy/terminus';
 import { injectable, inject } from 'tsyringe';
 
 import type { ITranslator } from '../i18n/i18n.js';
-import ShutdownService from '../Shutdown/Shutdown.js';
+import ShutdownService from '../ShutdownService/ShutdownService.js';
 
 import { CONFIG_TOKEN, type TTerminusConfig } from '#/application/interfaces/config/IConfig.js';
 import type ILogger from '#/application/interfaces/logger/ILogger.js';

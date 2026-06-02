@@ -5,7 +5,7 @@ import type { ITranslator } from '../i18n/i18n.js';
 import type ILogger from '#/application/interfaces/logger/ILogger.js';
 
 @injectable()
-export default class CriticalErrorsHandler {
+export default class CriticalErrorsService {
   constructor(
     @inject('ITranslator') private i18n: ITranslator,
     @inject('ILogger') private logger: ILogger,
