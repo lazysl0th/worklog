@@ -18,4 +18,6 @@ export type TConfig = z.infer<typeof envSchema>;
 
 export type TPort = Pick<TConfig, 'PORT'>;
 
+export type TTerminusConfig = Pick<TConfig, 'SHUTDOWN_SERVER_TIMEOUT' | 'PORT'>;
+
 export const CONFIG_TOKEN: InjectionToken<TConfig> = Symbol('CONFIG');
