@@ -1,0 +1,18 @@
+import { Router } from 'express';
+
+import type WorkLogController from '../controllers/WorkLogController.js';
+import type { IWorkLogValidations } from '../validations/workLogValidations.js';
+
+const createWorkLogRoutes = (
+  workLogController: WorkLogController,
+  workLogValidations: IWorkLogValidations,
+): Router => {
+  const router = Router();
+  router.get('/', workLogValidations.getWorkLogs, workLogController.getWorkLogs);
+  router.post('/', workLogValidations.createWorkLog, workLogController.createWorkLog);
+  router.patch('/:id', workLogValidations.updateWorkLog, workLogController.updateWorkLog);
+  router.delete('/:id', workLogValidations.deleteWorkLog, workLogController.deleteWorkLogs);
+  return router;
+};
+
+export default createWorkLogRoutes;

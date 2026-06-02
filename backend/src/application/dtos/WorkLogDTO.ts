@@ -1,40 +1,48 @@
-import { z } from 'zod';
+import { array, z } from 'zod';
 
 import { EnumMeasurementValue } from '#/domain/ value-objects/MeasurementUnit.js';
 
+export const getWorkLogsSchema = z.object({
+  query: z.object({
+    startDate: z.coerce.date().optional(),
+    endDate: z.coerce.date().optional(),
+    sortByDate: z.enum(['asc', 'desc']).optional(),
+  }),
+});
+
 export const createWorkLogSchema = z.object({
-  date: z.date(),
-  workTypeId: z.uuid(),
-  volume: z.number().positive(),
-  unit: z.enum(Object.values(EnumMeasurementValue)),
-  contractorId: z.uuid(),
+  body: z.object({
+    date: z.coerce.date(),
+    workTypeId: z.uuid(),
+    volume: z.coerce.number().positive(),
+    unit: z.enum(Object.values(EnumMeasurementValue)),
+    contractorId: z.uuid(),
+  }),
 });
 
-export const updateWorkLogSchema = createWorkLogSchema.partial().extend({
-  id: z.uuid(),
+export const updateWorkLogSchema = createWorkLogSchema.extend({
+  params: z.object({
+    id: z.uuid(),
+  }),
+  body: createWorkLogSchema.shape.body.partial(),
 });
 
-export const deleteWorkLogSchema = updateWorkLogSchema.pick({
-  id: true,
+export const deleteWorkLogSchema = z.object({
+  body: z.object({
+    id: array(z.uuid()),
+  }),
 });
 
-export const getWorkLogsFilterSchema = z
-  .object({
-    startDate: z.date().optional(),
-    endDate: z.date().optional(),
-    contractorId: z.uuid().optional(),
-  })
-  .refine(
-    (data) =>
-      data.contractorId !== undefined ||
-      (data.startDate !== undefined && data.endDate !== undefined),
-    { message: 'Must provide either contractorId, or both startDate and endDate' },
-  );
+export const deleteWorkLogsSchema = updateWorkLogSchema.pick({ params: true });
 
-export type TCreateWorkLogDto = z.infer<typeof createWorkLogSchema>;
+export type TGetWorkLogsDto = z.infer<typeof getWorkLogsSchema>['query'];
 
-export type TUpdateWorkLogDto = z.infer<typeof updateWorkLogSchema>;
+export type TCreateWorkLogDto = z.infer<typeof createWorkLogSchema>['body'];
 
-export type TDeleteWorkLogDto = z.infer<typeof deleteWorkLogSchema>;
+export type TUpdateWorkLogParams = z.infer<typeof updateWorkLogSchema>['params'];
 
-export type TGetWorkLogsFilterDto = z.infer<typeof getWorkLogsFilterSchema>;
+export type TUpdateWorkLogBody = z.infer<typeof updateWorkLogSchema>['body'];
+
+export type TUpdateWorkLogDto = TUpdateWorkLogParams & TUpdateWorkLogBody;
+
+export type TDeleteWorkLogDto = z.infer<typeof deleteWorkLogSchema>['body'];
