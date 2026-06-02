@@ -6,7 +6,7 @@ import { CONFIG_TOKEN, type TPort } from '#/application/interfaces/config/IConfi
 import type ILogger from '#/application/interfaces/logger/ILogger.js';
 
 @injectable()
-export default class ServerListenHandler {
+export default class ServerListenService {
   constructor(
     @inject('ITranslator') private i18n: ITranslator,
     @inject(CONFIG_TOKEN) private config: TPort,

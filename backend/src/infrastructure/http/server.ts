@@ -1,36 +1,43 @@
 import http from 'http';
 
 import { createTerminus } from '@godaddy/terminus';
+import cors from 'cors';
 import express from 'express';
+import helmet from 'helmet';
 import { container } from 'tsyringe';
 
-import ServerErrorsHandler from '../services/ServerErrorsHandler/ServerErrorsHandler.js';
-import ServerListenHandler from '../services/ServerListenHandler/ServerListenHandler.js';
-import ShutdownService from '../services/Shutdown/Shutdown.js';
-import TerminusService from '../services/Terminus/Terminus.js';
+import CorsService from '../services/CorsService/CorsService.js';
+import ServerErrorsService from '../services/ServerErrorsService/ServerErrorsService.js';
+import ServerListenService from '../services/ServerListenService/ServerListenService.js';
+import TerminusService from '../services/TerminusService/TerminusService.js';
+
+import ratelimitMiddleware from './middleware/ratelimitMiddleware.js';
 
 import { CONFIG_TOKEN } from '#/application/interfaces/config/IConfig.js';
 
 const bootstrap = async () => {
   const config = container.resolve(CONFIG_TOKEN);
-  const serverErrorsHandler = container.resolve(ServerErrorsHandler);
-  const serverListenHandler = container.resolve(ServerListenHandler);
+  const serverErrorsService = container.resolve(ServerErrorsService);
+  const serverListenService = container.resolve(ServerListenService);
+  const corsService = container.resolve(CorsService);
+
   const app = express();
+  app.use(helmet());
+  app.use(cors(corsService.options));
+  app.use(ratelimitMiddleware);
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+
   app.get('/', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'pong' });
   });
 
-  app.get('/test/kill', (req, res) => {
-    const shutdownService = container.resolve(ShutdownService);
-    shutdownService.stop();
-    res.send('Приложение переведено в статус DOWN');
-  });
   const httpServer = http.createServer(app);
   const terminusService = container.resolve(TerminusService);
   createTerminus(httpServer, terminusService.options());
 
-  httpServer.on('error', (err) => serverErrorsHandler.handle(err, httpServer));
-  httpServer.listen(config.PORT, serverListenHandler.handle);
+  httpServer.on('error', (err) => serverErrorsService.handle(err, httpServer));
+  httpServer.listen(config.PORT, serverListenService.handle);
 };
 
 export default bootstrap;
