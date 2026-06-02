@@ -9,7 +9,7 @@ import workLogValidations, {
   WORKLOG_VALIDATIONS_TOKEN,
 } from '../http/validations/workLogValidations.js';
 import { translator, type ITranslator } from '../services/i18n/i18n.js';
-import LoggerService from '../services/LoggerService/LoggerService.js';
+import LoggerService from '../services/LoggerService.js';
 
 import config from './env.js';
 
@@ -17,8 +17,8 @@ import { CONFIG_TOKEN } from '#/application/interfaces/config/IConfig.js';
 import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
 import type IWorkTypeRepository from '#/application/interfaces/IWorkTypeRepository.js';
 import type ILogger from '#/application/interfaces/logger/ILogger.js';
-import MeasurementUnit, { EnumMeasurementValue } from '#/domain/ value-objects/MeasurementUnit.js';
 import WorkLog from '#/domain/entities/WorkLog.js';
+import MeasurementUnit, { EnumMeasurementValue } from '#/domain/value-objects/MeasurementUnit.js';
 
 export interface IAppRoute {
   readonly path: string;
@@ -32,15 +32,7 @@ class FakeWorkTypeRepository implements IWorkTypeRepository {
       { id: '2', name: 'Монтажные работы (Фейк)', createdAt: new Date(), updatedAt: new Date() },
     ];
   }
-  async findById() {
-    return {
-      id: '1',
-      name: 'Монтажные работы (Фейк)',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-  }
-  async findByName() {
+  async getById() {
     return {
       id: '1',
       name: 'Монтажные работы (Фейк)',

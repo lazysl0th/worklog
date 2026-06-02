@@ -1,6 +1,6 @@
 import { array, z } from 'zod';
 
-import { EnumMeasurementValue } from '#/domain/ value-objects/MeasurementUnit.js';
+import { EnumMeasurementValue } from '#/domain/value-objects/MeasurementUnit.js';
 
 export const getWorkLogsSchema = z.object({
   query: z.object({

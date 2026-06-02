@@ -2,7 +2,7 @@ import type { Server } from 'http';
 
 import { inject, injectable } from 'tsyringe';
 
-import type { ITranslator } from '../i18n/i18n.js';
+import type { ITranslator } from './i18n/i18n.js';
 
 import { CONFIG_TOKEN, type TPort } from '#/application/interfaces/config/IConfig.js';
 import type ILogger from '#/application/interfaces/logger/ILogger.js';
