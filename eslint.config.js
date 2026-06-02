@@ -58,7 +58,7 @@ export default [
     files: ['backend/**/*.ts'],
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: { allowDefaultProject: ['backend/prisma.config.ts'] },
       },
     },
   },
