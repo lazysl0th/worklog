@@ -23,4 +23,6 @@ export type TTerminusConfig = Pick<TConfig, 'SHUTDOWN_SERVER_TIMEOUT' | 'PORT'>;
 
 export type TCorsConfig = Pick<TConfig, 'FRONTEND_URL'>;
 
+export type TPrismaConfig = Pick<TConfig, 'DATABASE_URL'>;
+
 export const CONFIG_TOKEN: InjectionToken<TConfig> = Symbol('CONFIG');

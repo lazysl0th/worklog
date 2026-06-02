@@ -1,12 +1,11 @@
-import type { EnumMeasurementValue } from '../ value-objects/MeasurementUnit.js';
-import MeasurementUnit from '../ value-objects/MeasurementUnit.js';
+import MeasurementUnit from '../value-objects/MeasurementUnit.js';
 
 interface IWorkLogProps {
   id: string;
   date: Date;
   workTypeId: string;
   volume: number;
-  unit: EnumMeasurementValue;
+  unit: string;
   contractorId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -26,7 +25,7 @@ export default class WorkLog {
     this.id = props.id;
     this.date = props.date;
     this.workTypeId = props.workTypeId;
-    this.volume = props.volume;
+    this.volume = Number(props.volume.toFixed(2));
     this.unit = new MeasurementUnit(props.unit);
     this.contractorId = props.contractorId;
     this.createdAt = props.createdAt;

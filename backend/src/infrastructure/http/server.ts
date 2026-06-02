@@ -7,10 +7,11 @@ import helmet from 'helmet';
 import { container } from 'tsyringe';
 
 import type { IAppRoute } from '../config/container.js';
-import CorsService from '../services/CorsService/CorsService.js';
-import ServerErrorsService from '../services/ServerErrorsService/ServerErrorsService.js';
-import ServerListenService from '../services/ServerListenService/ServerListenService.js';
-import TerminusService from '../services/TerminusService/TerminusService.js';
+import CorsService from '../services/CorsService.js';
+import PrismaService from '../services/PrismaService.js';
+import ServerErrorsService from '../services/ServerErrorsService.js';
+import ServerListenService from '../services/ServerListenService.js';
+import TerminusService from '../services/TerminusService.js';
 
 import limiter from './middleware/limiter.js';
 
@@ -18,6 +19,8 @@ import { CONFIG_TOKEN } from '#/application/interfaces/config/IConfig.js';
 
 const bootstrap = async () => {
   const config = container.resolve(CONFIG_TOKEN);
+  const prismaService = container.resolve(PrismaService);
+  await prismaService.connect();
   const serverErrorsService = container.resolve(ServerErrorsService);
   const serverListenService = container.resolve(ServerListenService);
   const corsService = container.resolve(CorsService);
