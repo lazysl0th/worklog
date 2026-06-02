@@ -1,4 +1,4 @@
-enum EnumMeasurementValue {
+export enum EnumMeasurementValue {
   M3 = 'M3',
   M2 = 'M2',
   M = 'M',

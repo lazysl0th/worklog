@@ -1,6 +1,6 @@
 import type WorkLog from '#/domain/entities/WorkLog.js';
 
-export interface IWorkLogRepository {
+export default interface IWorkLogRepository {
   findById(id: string): Promise<WorkLog | null>;
   findByDateRange(startDate: Date, endDate: Date): Promise<WorkLog[]>;
   findByContractorId(contractorId: string): Promise<WorkLog[]>;

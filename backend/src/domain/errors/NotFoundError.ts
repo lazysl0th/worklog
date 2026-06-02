@@ -1,0 +1,12 @@
+import DomainError from './DomainError.js';
+
+export type TEntity = 'WorkType' | 'WorkLog';
+
+export default class NotFoundError extends DomainError {
+  readonly code: string;
+
+  constructor(entityName: TEntity) {
+    super(`${entityName} was not found.`);
+    this.code = `${entityName.toUpperCase()}.NOT_FOUND`;
+  }
+}
