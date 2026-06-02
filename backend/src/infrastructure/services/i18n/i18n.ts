@@ -1,12 +1,6 @@
 import i18next from 'i18next';
 
-import ru from './locales/ru.json' with { type: 'json' };
-
-export const resources = {
-  ru: {
-    translation: ru,
-  },
-} as const;
+import { resources } from './locales/index.js';
 
 i18next.init({
   lng: 'ru',
