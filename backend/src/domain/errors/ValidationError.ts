@@ -11,4 +11,12 @@ export default class ValidationError extends DomainError {
     this.code = `VALIDATION`;
     this.issues = issues;
   }
+
+  public toJSON() {
+    return {
+      message: this.message,
+      code: this.code,
+      issues: this.issues,
+    };
+  }
 }

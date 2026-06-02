@@ -1,9 +1,10 @@
+import type { TGetWorkLogsDto } from '../dtos/WorkLogDTO.js';
+
 import type WorkLog from '#/domain/entities/WorkLog.js';
 
 export default interface IWorkLogRepository {
   findById(id: string): Promise<WorkLog | null>;
-  findByDateRange(startDate: Date, endDate: Date): Promise<WorkLog[]>;
-  findByContractorId(contractorId: string): Promise<WorkLog[]>;
-  save(workLog: WorkLog): Promise<void>;
-  delete(id: string): Promise<void>;
+  findByDateRange(filters: TGetWorkLogsDto): Promise<WorkLog[]>;
+  save(workLog: WorkLog): Promise<WorkLog>;
+  delete(id: string[]): Promise<void>;
 }
