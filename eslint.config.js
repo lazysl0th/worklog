@@ -58,12 +58,13 @@ export default [
     files: ['backend/**/*.ts'],
     languageOptions: {
       parserOptions: {
-        projectService: {
-          allowDefaultProject: ['backend/prisma.config.ts', 'backend/vitest.config.ts'],
-        },
+        projectService: { allowDefaultProject: [
+    "*.config.ts",
+    "backend/*.config.ts",
+],
+        } },
       },
     },
-  },
 
   {
     files: ['frontend/**/*.ts', 'frontend/**/*.tsx'],

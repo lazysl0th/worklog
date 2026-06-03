@@ -1,14 +1,10 @@
 import { HealthCheckError, type TerminusOptions } from '@godaddy/terminus';
 import { injectable, inject } from 'tsyringe';
 
-import {
-  CONFIG_TOKEN,
-  type TTerminusConfig,
-} from '../../../dist/application/interfaces/IConfig.js';
-
 import type { ITranslator } from './i18n/i18n.js';
 import ShutdownService from './ShutdownService.js';
 
+import { CONFIG_TOKEN, type TTerminusConfig } from '#/application/interfaces/IConfig.js';
 import type ILogger from '#/application/interfaces/ILogger.js';
 
 @injectable()
