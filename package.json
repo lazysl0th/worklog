@@ -12,7 +12,7 @@
     "build:backend": "npm run build -w backend",
     "test": "npm run test --workspaces --if-present",
     "test:coverage": "npm run test:coverage --workspaces --if-present",
-    "test:backend": "npm run infra:up && sleep 2 && npm run db:deploy -w backend && npm run test -w backend",
+    "test:backend": "npm run infra:up && npm run db:generate -w backend && npm run db:deploy -w backend && npm run test -w backend",
     "lint": "eslint . --fix",
     "lint:backend": "npm run lint -w backend",
     "format": "prettier --write .",
