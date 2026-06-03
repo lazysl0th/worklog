@@ -10,6 +10,6 @@ export default defineConfig({
     path: 'src/infrastructure/persistence/prisma/migrations',
   },
   datasource: {
-    url: process.env['DATABASE_URL'],
+    url: process.env.DATABASE_URL,
   },
 });
