@@ -32,6 +32,8 @@ jobs:
 
       - name: 🐳 Run Infrastructure & Tests
         run: npm run test:backend
+        env:
+          DATABASE_URL: 'postgresql://postgres:root@localhost:5433/worklog_db?schema=public'
 
       - name: 🛑 Cleanup Infrastructure
         if: always()
