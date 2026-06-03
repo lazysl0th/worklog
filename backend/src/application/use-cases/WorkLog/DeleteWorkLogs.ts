@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
 import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
+import type { DeleteResult } from '#/application/interfaces/IWorkTypeRepository.js';
 
 @injectable()
 export default class DeleteWorkLogs {
@@ -8,7 +9,7 @@ export default class DeleteWorkLogs {
     @inject('IWorkLogRepository') private readonly workLogRepository: IWorkLogRepository,
   ) {}
 
-  public async execute(id: string[]): Promise<void> {
-    await this.workLogRepository.delete(id);
+  public async execute(ids: string[]): Promise<DeleteResult> {
+    return await this.workLogRepository.delete(ids);
   }
 }

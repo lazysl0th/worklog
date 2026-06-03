@@ -1,7 +1,8 @@
 import type { CorsOptions } from 'cors';
 import { injectable, inject } from 'tsyringe';
 
-import { CONFIG_TOKEN, type TCorsConfig } from '#/application/interfaces/config/IConfig.js';
+import { CONFIG_TOKEN, type TCorsConfig } from '../../../dist/application/interfaces/IConfig.js';
+
 import ForbiddenError from '#/domain/errors/ForbiddenError.js';
 
 @injectable()

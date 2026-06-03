@@ -1,12 +1,10 @@
-name: Continuous Integration
-
-run-name: CI Run by @${{ github.actor }} — 🚀 ${{ github.event.head_commit.message }}
-
+name: Frontend CI
 on:
   pull_request:
+    paths: ['frontend/**']
   push:
-    branches:
-      - main
+    branches: [main]
+    paths: ['frontend/**']
 
 jobs:
   lint:
@@ -21,26 +19,6 @@ jobs:
 
       - name: 🧼 Run Linter Checks
         run: npm run lint
-
-  build-backend:
-    name: Build Backend Verification
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🔍 Clone Repository
-        uses: actions/checkout@v6
-
-      - name: 🛠️ Setup Dependencies
-        uses: ./.github/actions/setup-project
-
-      - name: 🏗️ Compile Backend Application
-        shell: bash
-        run: |
-          if [ -d backend ] && [ -f backend/package.json ]; then
-            cd backend && npm run build --if-present
-          else
-            echo "Backend application not initialized yet, skipping build..."
-          fi
-
   build-frontend:
     name: Build Frontend Verification
     runs-on: ubuntu-latest

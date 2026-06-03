@@ -8,7 +8,9 @@ import WorkLog from '#/domain/entities/WorkLog.js';
 
 @injectable()
 export default class CreateWorkLog {
-  constructor(@inject('IWorkLogRepository') private readonly workLogRepo: IWorkLogRepository) {}
+  constructor(
+    @inject('IWorkLogRepository') private readonly workLogRepository: IWorkLogRepository,
+  ) {}
 
   public async execute(workLogDto: TCreateWorkLogDto): Promise<WorkLog> {
     const workLog = new WorkLog({
@@ -22,6 +24,6 @@ export default class CreateWorkLog {
       updatedAt: new Date(),
     });
 
-    return this.workLogRepo.save(workLog);
+    return this.workLogRepository.save(workLog);
   }
 }

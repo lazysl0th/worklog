@@ -3,20 +3,33 @@
   "version": "1.0.0",
   "description": "Worklog application",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+"scripts": {
+    "prepare": "husky",
     "commit": "cz",
     "release": "standard-version",
+    
+    "dev": "npm run dev -w backend",
+    
+    "build": "npm run build --workspaces --if-present",
+    "build:backend": "npm run build -w backend",
+    
+    "test": "npm run test --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "test:backend": "npm run infra:up && sleep 2 && npm run db:deploy -w backend && npm run test -w backend",
+    
     "lint": "eslint . --fix",
+    "lint:backend": "npm run lint -w backend",
+    
     "format": "prettier --write .",
-    "check": "npm run infra:check && npm run lint && npm run format",
-    "prepare": "husky",
-    "build": "mkdir -p dist && echo 'console.log(\"Hello from Worklog Backend\")' > dist/index.js",
+    "check": "npm run infra:check && npm run lint && npm run test",
+    
     "infra:up": "docker compose up -d",
     "infra:down": "docker compose down",
     "infra:clean": "docker compose down -v",
     "infra:check": "docker compose ps --filter 'status=running' | grep -q 'postgres' && echo '✅ Infrastructure is OK' || (echo '❌ Infrastructure is DOWN' && exit 1)",
-    "dev:backend": "npm run dev -w backend"
+    
+    "db:migrate": "npm run db:migrate -w backend",
+    "db:generate": "npm run db:generate -w backend"
   },
   "private": true,
   "workspaces": [
@@ -57,7 +70,9 @@
     "prisma": "^7.8.0",
     "standard-version": "^9.5.0",
     "tsx": "^4.22.4",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8",
+    "vitest-mock-extended": "^4.0.0"
   },
   "overrides": {
     "lodash": "^4.17.24",

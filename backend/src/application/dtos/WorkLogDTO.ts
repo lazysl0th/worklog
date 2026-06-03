@@ -29,7 +29,7 @@ export const updateWorkLogSchema = createWorkLogSchema.extend({
 
 export const deleteWorkLogSchema = z.object({
   body: z.object({
-    id: array(z.uuid()),
+    ids: array(z.uuid()),
   }),
 });
 

@@ -12,7 +12,7 @@ export default class UpdateWorkLog {
   ) {}
 
   public async execute(workLogDto: TUpdateWorkLogDto): Promise<WorkLog> {
-    const workLog = await this.workLogRepository.findById(workLogDto.id);
+    const workLog = await this.workLogRepository.getById(workLogDto.id);
     if (!workLog) throw new NotFoundError('WorkLog');
 
     const updatedWorkLog = new WorkLog({

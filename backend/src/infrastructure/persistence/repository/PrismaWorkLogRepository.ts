@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import PrismaService from '../../services/PrismaService.js';
+import type { BatchPayload } from '../prisma/generated/internal/prismaNamespace.js';
 import type { WorkLogGetPayload } from '../prisma/generated/models.js';
 
 import type { TGetWorkLogsDto } from '#/application/dtos/WorkLogDTO.js';
@@ -18,12 +19,12 @@ export class PrismaWorkLogRepository implements IWorkLogRepository {
       unit: workLog.unit,
     });
   }
-  async findById(id: string): Promise<WorkLog | null> {
+  async getById(id: string): Promise<WorkLog | null> {
     const workLogData = await this.prisma.client.workLog.findUnique({ where: { id } });
     return workLogData ? this.createWorLog(workLogData) : null;
   }
 
-  async findByDateRange({ startDate, endDate, sortByDate }: TGetWorkLogsDto): Promise<WorkLog[]> {
+  async getByDateRange({ startDate, endDate, sortByDate }: TGetWorkLogsDto): Promise<WorkLog[]> {
     const workLogDatas = await this.prisma.client.workLog.findMany({
       where: {
         date: {
@@ -34,13 +35,6 @@ export class PrismaWorkLogRepository implements IWorkLogRepository {
       orderBy: { date: sortByDate ? 'asc' : 'desc' },
     });
     return workLogDatas.map((workLogData) => this.createWorLog(workLogData));
-  }
-
-  async findByContractorId(contractorId: string): Promise<WorkLog[]> {
-    const models = await this.prisma.client.workLog.findMany({
-      where: { contractorId },
-    });
-    return models.map((model) => this.createWorLog(model));
   }
 
   async save(workLog: WorkLog): Promise<WorkLog> {
@@ -55,9 +49,9 @@ export class PrismaWorkLogRepository implements IWorkLogRepository {
     return this.createWorLog(workLogData);
   }
 
-  async delete(id: string[]): Promise<void> {
-    await this.prisma.client.workLog.deleteMany({
-      where: { id: { in: id } },
+  async delete(ids: string[]): Promise<BatchPayload> {
+    return await this.prisma.client.workLog.deleteMany({
+      where: { id: { in: ids } },
     });
   }
 }

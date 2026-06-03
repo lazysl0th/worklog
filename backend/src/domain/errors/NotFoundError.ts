@@ -7,6 +7,6 @@ export default class NotFoundError extends DomainError {
 
   constructor(entityName: TEntity) {
     super(`${entityName} was not found.`);
-    this.code = `${entityName.toUpperCase()}.NOT_FOUND`;
+    this.code = `${entityName.toUpperCase()}_NOT_FOUND`;
   }
 }
