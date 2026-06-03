@@ -8,92 +8,19 @@ import createWorkTypeRoutes from '../http/routes/workTypeRoutes.js';
 import workLogValidations, {
   WORKLOG_VALIDATIONS_TOKEN,
 } from '../http/validations/workLogValidations.js';
+import { PrismaWorkLogRepository } from '../persistence/repository/PrismaWorkLogRepository.js';
+import { PrismaWorkTypeRepository } from '../persistence/repository/PrismaWorkTypeRepository.js';
 import { translator, type ITranslator } from '../services/i18n/i18n.js';
 import LoggerService from '../services/LoggerService.js';
 
 import config from './env.js';
 
-import { CONFIG_TOKEN } from '#/application/interfaces/config/IConfig.js';
-import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
-import type IWorkTypeRepository from '#/application/interfaces/IWorkTypeRepository.js';
-import type ILogger from '#/application/interfaces/logger/ILogger.js';
-import WorkLog from '#/domain/entities/WorkLog.js';
-import MeasurementUnit, { EnumMeasurementValue } from '#/domain/value-objects/MeasurementUnit.js';
+import { CONFIG_TOKEN } from '#/application/interfaces/IConfig.js';
+import type ILogger from '#/application/interfaces/ILogger.js';
 
 export interface IAppRoute {
   readonly path: string;
   readonly router: Router;
-}
-
-class FakeWorkTypeRepository implements IWorkTypeRepository {
-  async getAll() {
-    return [
-      { id: '1', name: 'Монтажные работы (Фейк)', createdAt: new Date(), updatedAt: new Date() },
-      { id: '2', name: 'Монтажные работы (Фейк)', createdAt: new Date(), updatedAt: new Date() },
-    ];
-  }
-  async getById() {
-    return {
-      id: '1',
-      name: 'Монтажные работы (Фейк)',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-  }
-  async save() {}
-  async delete() {}
-}
-
-class FakeWorkLogRepository implements IWorkLogRepository {
-  async findById() {
-    return {
-      id: '1',
-      date: new Date(),
-      workTypeId: '1',
-      volume: 1,
-      unit: new MeasurementUnit(EnumMeasurementValue.KG),
-      contractorId: '1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-  }
-  async findByDateRange() {
-    return [
-      {
-        id: '1',
-        date: new Date(),
-        workTypeId: '1',
-        volume: 1,
-        unit: new MeasurementUnit(EnumMeasurementValue.KG),
-        contractorId: '1',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: '2',
-        date: new Date(),
-        workTypeId: '1',
-        volume: 1,
-        unit: new MeasurementUnit(EnumMeasurementValue.KG),
-        contractorId: '1',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
-  }
-  async save() {
-    return new WorkLog({
-      id: '1',
-      date: new Date(),
-      workTypeId: '1',
-      volume: 1,
-      unit: EnumMeasurementValue.KG,
-      contractorId: '1',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-  }
-  async delete() {}
 }
 
 const createContainer = () => {
@@ -110,9 +37,6 @@ const createContainer = () => {
       };
     },
   });
-  container.register('IWorkTypeRepository', {
-    useClass: FakeWorkTypeRepository,
-  });
   container.register<IAppRoute>('IAppRoute', {
     useFactory: (controller) => {
       const routesController = controller.resolve(WorkLogController);
@@ -124,10 +48,10 @@ const createContainer = () => {
     },
   });
   container.register('IWorkTypeRepository', {
-    useClass: FakeWorkTypeRepository,
+    useClass: PrismaWorkTypeRepository,
   });
   container.register('IWorkLogRepository', {
-    useClass: FakeWorkLogRepository,
+    useClass: PrismaWorkLogRepository,
   });
 };
 

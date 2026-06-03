@@ -11,6 +11,6 @@ export default class GetWorkLogs {
   ) {}
 
   public async execute(filters: TGetWorkLogsDto): Promise<WorkLog[]> {
-    return this.workLogRepository.findByDateRange(filters);
+    return this.workLogRepository.getByDateRange(filters);
   }
 }

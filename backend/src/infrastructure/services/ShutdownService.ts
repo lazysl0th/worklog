@@ -3,7 +3,7 @@ import { inject, singleton } from 'tsyringe';
 import type { ITranslator } from './i18n/i18n.js';
 import PrismaService from './PrismaService.js';
 
-import type ILogger from '#/application/interfaces/logger/ILogger.js';
+import type ILogger from '#/application/interfaces/ILogger.js';
 
 @singleton()
 export default class ShutdownService {

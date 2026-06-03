@@ -9,14 +9,13 @@ interface ValidatedRequest {
   query?: ParsedQs;
 }
 
-function isValidatedRequest(value: unknown): value is ValidatedRequest {
+export function isValidatedRequest(value: unknown): value is ValidatedRequest {
   return typeof value === 'object' && value !== null;
 }
 
 const validate =
   (schema: z.ZodTypeAny): RequestHandler =>
   async (req, _, next): Promise<void> => {
-    if (!schema) return next();
     const result = await schema.parseAsync({
       body: req.body,
       params: req.params,
@@ -31,7 +30,12 @@ const validate =
         req.params = result.params;
       }
       if (result.query !== undefined) {
-        req.query = result.query;
+        Object.defineProperty(req, 'query', {
+          value: result.query,
+          writable: true,
+          configurable: true,
+          enumerable: true,
+        });
       }
     }
     next();

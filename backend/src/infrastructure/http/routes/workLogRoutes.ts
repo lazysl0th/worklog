@@ -11,7 +11,7 @@ const createWorkLogRoutes = (
   router.get('/', workLogValidations.getWorkLogs, workLogController.getWorkLogs);
   router.post('/', workLogValidations.createWorkLog, workLogController.createWorkLog);
   router.patch('/:id', workLogValidations.updateWorkLog, workLogController.updateWorkLog);
-  router.delete('/:id', workLogValidations.deleteWorkLog, workLogController.deleteWorkLogs);
+  router.delete('/', workLogValidations.deleteWorkLogs, workLogController.deleteWorkLogs);
   return router;
 };
 

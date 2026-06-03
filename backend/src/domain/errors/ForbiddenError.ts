@@ -4,7 +4,7 @@ export default class ForbiddenError extends DomainError {
   readonly code: string;
 
   constructor() {
-    super(`Insufficient permissions`);
+    super(`Access denied`);
     this.code = `FORBIDDEN`;
   }
 }

@@ -13,9 +13,10 @@ import ServerErrorsService from '../services/ServerErrorsService.js';
 import ServerListenService from '../services/ServerListenService.js';
 import TerminusService from '../services/TerminusService.js';
 
+import errorsHandler from './middleware/errorsHandler.js';
 import limiter from './middleware/limiter.js';
 
-import { CONFIG_TOKEN } from '#/application/interfaces/config/IConfig.js';
+import { CONFIG_TOKEN } from '#/application/interfaces/IConfig.js';
 
 const bootstrap = async () => {
   const config = container.resolve(CONFIG_TOKEN);
@@ -38,6 +39,8 @@ const bootstrap = async () => {
   app.get('/', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'pong' });
   });
+
+  app.use(errorsHandler);
 
   const httpServer = http.createServer(app);
   const terminusService = container.resolve(TerminusService);

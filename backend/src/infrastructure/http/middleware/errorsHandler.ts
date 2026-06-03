@@ -1,11 +1,6 @@
 import type { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 
-//import HttpStatusCode from '@infrastructure/constants/https-status-code.js'
-//import httpResponseMap from '@infrastructure/constants/response.js'
-
-//import zodErrorHandler from './zodErrorsHandler.js'
-
 import HttpStatusCode from '../contstants/httpStatusCode.js';
 import httpResponseMap from '../contstants/responses.js';
 

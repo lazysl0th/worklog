@@ -10,6 +10,7 @@ import type {
   TUpdateWorkLogBody,
   TUpdateWorkLogParams,
 } from '#/application/dtos/WorkLogDTO.js';
+import type { DeleteResult } from '#/application/interfaces/IWorkTypeRepository.js';
 import CreateWorkLog from '#/application/use-cases/WorkLog/CreateWorkLog.js';
 import DeleteWorkLogs from '#/application/use-cases/WorkLog/DeleteWorkLogs.js';
 import GetWorkLogs from '#/application/use-cases/WorkLog/GetWorkLogs.js';
@@ -22,7 +23,7 @@ export default class WorkLogController {
     @inject(GetWorkLogs) private readonly getAll: GetWorkLogs,
     @inject(CreateWorkLog) private readonly create: CreateWorkLog,
     @inject(UpdateWorkLog) private readonly update: UpdateWorkLog,
-    @inject(UpdateWorkLog) private readonly remove: DeleteWorkLogs,
+    @inject(DeleteWorkLogs) private readonly remove: DeleteWorkLogs,
   ) {}
 
   public getWorkLogs: RequestHandler<never, WorkLog[], never, TGetWorkLogsDto> = async (
@@ -55,9 +56,12 @@ export default class WorkLogController {
     res.status(HttpStatusCode.Ok).json(workLog);
   };
 
-  public deleteWorkLogs: RequestHandler<TDeleteWorkLogDto> = async (req, res): Promise<void> => {
-    const id = req.params.id;
-    await this.remove.execute(id);
-    res.status(HttpStatusCode.NoContent).send();
+  public deleteWorkLogs: RequestHandler<never, DeleteResult, TDeleteWorkLogDto> = async (
+    req,
+    res,
+  ): Promise<void> => {
+    const ids = req.body.ids;
+    const result = await this.remove.execute(ids);
+    res.status(HttpStatusCode.NoContent).send(result);
   };
 }

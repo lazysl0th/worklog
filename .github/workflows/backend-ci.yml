@@ -1,0 +1,43 @@
+name: Backend CI
+on:
+  pull_request:
+    paths: ['backend/**', 'package.json', 'package-lock.json']
+  push:
+    branches: [main]
+    paths: ['backend/**', 'package.json', 'package-lock.json']
+
+jobs:
+  lint:
+    name: Code Quality (Linting)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔍 Clone Repository
+        uses: actions/checkout@v6
+
+      - name: 🛠️ Setup Node & Dependencies
+        uses: ./.github/actions/setup-project
+
+      - name: 🧼 Run Linter Checks
+        run: npm run lint:backend
+
+  build:
+    name: Build Backend Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔍 Clone Repository
+        uses: actions/checkout@v6
+
+      - name: 🛠️ Setup Dependencies
+        uses: ./.github/actions/setup-project
+
+      - name: 🐳 Run Infrastructure & Tests
+        run: npm run test:backend
+        env:
+          DATABASE_URL: 'postgresql://postgres:root@localhost:5433/worklog_db?schema=public'
+
+      - name: 🛑 Cleanup Infrastructure
+        if: always()
+        run: npm run infra:down
+
+      - name: 🏗️ Compile Backend Application
+        run: npm run build:backend

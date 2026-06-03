@@ -10,7 +10,7 @@ const httpResponseMap: Record<string, HttpErrorMeta> = {
     status: HttpStatusCode.BadRequest,
     i18nKey: 'Invalid data provided',
   },
-  USER_NOT_FOUND: {
+  WORKLOG_NOT_FOUND: {
     status: HttpStatusCode.NotFound,
     i18nKey: 'Nothing found',
   },
@@ -29,6 +29,10 @@ const httpResponseMap: Record<string, HttpErrorMeta> = {
   UNAUTHORIZED: {
     status: HttpStatusCode.Unauthorized,
     i18nKey: 'Authorization required',
+  },
+  FORBIDDEN: {
+    status: HttpStatusCode.Forbidden,
+    i18nKey: 'Access denied',
   },
 };
 

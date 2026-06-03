@@ -3,7 +3,7 @@ import { inject, injectable, singleton } from 'tsyringe';
 
 import { PrismaClient } from '../persistence/prisma/generated/client.js';
 
-import { CONFIG_TOKEN, type TPrismaConfig } from '#/application/interfaces/config/IConfig.js';
+import { CONFIG_TOKEN, type TPrismaConfig } from '#/application/interfaces/IConfig.js';
 
 @injectable()
 @singleton()
