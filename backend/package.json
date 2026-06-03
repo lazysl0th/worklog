@@ -20,16 +20,13 @@
     "dev": "tsx watch src/index.ts",
     "build": "npm run db:generate && tsc",
     "start": "node dist/index.js",
-    
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    
     "lint": "eslint . --fix",
     "format:check": "prettier --write .",
-    
-    "db:generate": "prisma generate --schema=./src/infrastructure/persistence/prisma/schema.prisma",
-    "db:migrate": "prisma migrate dev --schema=./src/infrastructure/persistence/prisma/schema.prisma",
-    "db:deploy": "prisma migrate deploy --schema=./src/infrastructure/persistence/prisma/schema.prisma"
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
   },
   "imports": {
     "#/*": "./dist/*"

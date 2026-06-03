@@ -29,10 +29,10 @@ jobs:
 
       - name: 🛠️ Setup Dependencies
         uses: ./.github/actions/setup-project
-    
+
       - name: 🐳 Run Infrastructure & Tests
         run: npm run test:backend
-        
+
       - name: 🛑 Cleanup Infrastructure
         if: always()
         run: npm run infra:down

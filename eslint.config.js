@@ -58,13 +58,10 @@ export default [
     files: ['backend/**/*.ts'],
     languageOptions: {
       parserOptions: {
-        projectService: { allowDefaultProject: [
-    "*.config.ts",
-    "backend/*.config.ts",
-],
-        } },
+        projectService: { allowDefaultProject: ['*.config.ts', 'backend/*.config.ts'] },
       },
     },
+  },
 
   {
     files: ['frontend/**/*.ts', 'frontend/**/*.tsx'],
