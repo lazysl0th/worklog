@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
 
+import WorkLog from '#/domain/entities/WorkLog.js';
+
 import {
   workLogId,
   prismaMock,
   createMockDbWorkLogRecord,
   prismaWorkLogRepository,
 } from '../../../setup.js';
-
-import WorkLog from '#/domain/entities/WorkLog.js';
 
 describe('Integration: PrismaWorkLogRepository.findById', () => {
   it('Happy Path: должен вернуть инстанс WorkLog, если запись найдена в БД', async () => {

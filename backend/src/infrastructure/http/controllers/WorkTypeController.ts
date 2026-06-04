@@ -1,9 +1,10 @@
 import type { RequestHandler } from 'express';
+
 import { inject, injectable } from 'tsyringe';
 
-import HttpStatusCode from '../contstants/httpStatusCode.js';
-
 import GetWorkTypes from '#/application/use-cases/WorkType/GetWorkTypes.js';
+
+import HttpStatusCode from '../contstants/httpStatusCode.js';
 
 @injectable()
 export default class WorkTypeController {

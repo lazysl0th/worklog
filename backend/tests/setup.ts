@@ -1,7 +1,6 @@
 import 'reflect-metadata';
-import { randomUUID, type UUID } from 'crypto';
-
 import { Decimal } from '@prisma/client/runtime/client';
+import { randomUUID, type UUID } from 'crypto';
 import express from 'express';
 import { container } from 'tsyringe';
 import { afterAll, beforeAll, beforeEach, vi } from 'vitest';
@@ -11,6 +10,9 @@ import { mock } from 'vitest-mock-extended';
 import type { TGetWorkLogsDto } from '#/application/dtos/WorkLogDTO.js';
 import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
 import type IWorkTypeRepository from '#/application/interfaces/IWorkTypeRepository.js';
+import type { PrismaClient } from '#/infrastructure/persistence/prisma/generated/client.js';
+import type PrismaService from '#/infrastructure/services/PrismaService.js';
+
 import WorkLog from '#/domain/entities/WorkLog.js';
 import WorkType from '#/domain/entities/WorkType.js';
 import { EnumMeasurementValue } from '#/domain/value-objects/MeasurementUnit.js';
@@ -20,11 +22,9 @@ import errorsHandler from '#/infrastructure/http/middleware/errorsHandler.js';
 import createWorkLogRoutes from '#/infrastructure/http/routes/workLogRoutes.js';
 import createWorkTypeRoutes from '#/infrastructure/http/routes/workTypeRoutes.js';
 import workLogValidations from '#/infrastructure/http/validations/workLogValidations.js';
-import type { PrismaClient } from '#/infrastructure/persistence/prisma/generated/client.js';
 import { MeasurementUnit } from '#/infrastructure/persistence/prisma/generated/client.js';
 import { PrismaWorkLogRepository } from '#/infrastructure/persistence/repository/PrismaWorkLogRepository.js';
 import { PrismaWorkTypeRepository } from '#/infrastructure/persistence/repository/PrismaWorkTypeRepository.js';
-import type PrismaService from '#/infrastructure/services/PrismaService.js';
 
 const prismaMock: DeepMockProxy<PrismaClient> = mockDeep<PrismaClient>();
 

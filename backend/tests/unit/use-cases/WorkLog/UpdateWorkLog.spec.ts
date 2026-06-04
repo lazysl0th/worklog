@@ -1,10 +1,11 @@
 import { describe, it, expect } from 'vitest';
 
-import { createMockWorkLog, mockWorkLogRepository, workLogId } from '../../../setup.js';
-
 import type { TUpdateWorkLogDto } from '#/application/dtos/WorkLogDTO.js';
+
 import UpdateWorkLog from '#/application/use-cases/WorkLog/UpdateWorkLog.js';
 import NotFoundError from '#/domain/errors/NotFoundError.js';
+
+import { createMockWorkLog, mockWorkLogRepository, workLogId } from '../../../setup.js';
 
 describe('Unit: UpdateWorkLog Use Case', () => {
   const dto: TUpdateWorkLogDto = {

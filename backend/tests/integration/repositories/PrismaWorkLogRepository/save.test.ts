@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
+import WorkLog from '#/domain/entities/WorkLog.js';
+
 import {
   prismaWorkLogRepository,
   createMockDbWorkLogRecord,
@@ -7,8 +9,6 @@ import {
   prismaMock,
   workLogId,
 } from '../../../setup.js';
-
-import WorkLog from '#/domain/entities/WorkLog.js';
 
 describe('Integration: PrismaWorkLogRepository.save', () => {
   it('Happy Path: должен успешно выполнить upsert для сущности WorkLog и вернуть её инстанс', async () => {

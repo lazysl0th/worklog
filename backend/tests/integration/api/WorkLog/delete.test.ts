@@ -2,9 +2,9 @@ import 'reflect-metadata';
 import request from 'supertest';
 import { describe, it, expect } from 'vitest';
 
-import { app, mockWorkLogRepository, workLogId } from '../../../setup.js';
-
 import HttpStatusCode from '#/infrastructure/http/contstants/httpStatusCode.js';
+
+import { app, mockWorkLogRepository, workLogId } from '../../../setup.js';
 
 describe('API Integration: DELETE /work-logs (Delete)', () => {
   it('Happy Path: должен успешно удалить журналы, если валидация по Zod/Joi пройдена', async () => {

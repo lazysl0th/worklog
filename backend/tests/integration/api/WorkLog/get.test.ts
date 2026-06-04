@@ -3,10 +3,11 @@ import request from 'supertest';
 import { describe, it, expect } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 
-import { app, filters, mockWorkLogRepository } from '../../../setup.js';
-
 import type WorkLog from '#/domain/entities/WorkLog.js';
+
 import HttpStatusCode from '#/infrastructure/http/contstants/httpStatusCode.js';
+
+import { app, filters, mockWorkLogRepository } from '../../../setup.js';
 
 describe('API Integration: GET /work-logs (Get List)', () => {
   it('Happy Path: должен успешно вернуть список журналов через реальный контроллер и валидатор query', async () => {

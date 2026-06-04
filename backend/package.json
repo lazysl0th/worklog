@@ -22,8 +22,6 @@
     "start": "node dist/index.js",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "lint": "eslint . --fix",
-    "format:check": "prettier --write .",
     "db:generate": "prisma generate --schema=./src/infrastructure/persistence/prisma/schema.prisma",
     "db:migrate": "prisma migrate dev --schema=./src/infrastructure/persistence/prisma/schema.prisma",
     "db:deploy": "prisma migrate deploy"
@@ -46,7 +44,6 @@
     "helmet": "^8.2.0",
     "pg": "^8.21.0",
     "reflect-metadata": "^0.2.2",
-    "tsyringe": "^4.10.0",
-    "zod": "^4.4.3"
+    "tsyringe": "^4.10.0"
   }
 }

@@ -1,12 +1,14 @@
 import { inject, injectable } from 'tsyringe';
 
-import PrismaService from '../../services/PrismaService.js';
+import type { TGetWorkLogsDto } from '#/application/dtos/WorkLogDTO.js';
+import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
+
+import WorkLog from '#/domain/entities/WorkLog.js';
+
 import type { BatchPayload } from '../prisma/generated/internal/prismaNamespace.js';
 import type { WorkLogGetPayload } from '../prisma/generated/models.js';
 
-import type { TGetWorkLogsDto } from '#/application/dtos/WorkLogDTO.js';
-import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
-import WorkLog from '#/domain/entities/WorkLog.js';
+import PrismaService from '../../services/PrismaService.js';
 
 @injectable()
 export class PrismaWorkLogRepository implements IWorkLogRepository {

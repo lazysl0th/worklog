@@ -1,10 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 
-import type { BatchPayload } from '../prisma/generated/internal/prismaNamespace.js';
-
 import type IWorkTypeRepository from '#/application/interfaces/IWorkTypeRepository.js';
+
 import WorkType from '#/domain/entities/WorkType.js';
 import PrismaService from '#/infrastructure/services/PrismaService.js';
+
+import type { BatchPayload } from '../prisma/generated/internal/prismaNamespace.js';
 
 @injectable()
 export class PrismaWorkTypeRepository implements IWorkTypeRepository {

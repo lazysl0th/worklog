@@ -1,14 +1,14 @@
 import type { RequestHandler } from 'express';
 import type { InjectionToken } from 'tsyringe';
 
-import validate from '../middleware/validation.js';
-
 import {
   getWorkLogsSchema,
   createWorkLogSchema,
   updateWorkLogSchema,
   deleteWorkLogSchema,
 } from '#/application/dtos/WorkLogDTO.js';
+
+import validate from '../middleware/validation.js';
 
 export interface IWorkLogValidations {
   getWorkLogs: RequestHandler;

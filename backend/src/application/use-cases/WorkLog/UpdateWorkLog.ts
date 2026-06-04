@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import type { TUpdateWorkLogDto } from '#/application/dtos/WorkLogDTO.js';
 import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
+
 import WorkLog from '#/domain/entities/WorkLog.js';
 import NotFoundError from '#/domain/errors/NotFoundError.js';
 

@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
 
+import WorkLog from '#/domain/entities/WorkLog.js';
+
 import {
   createMockDbWorkLogRecord,
   filters,
   prismaMock,
   prismaWorkLogRepository,
 } from '../../../setup.js';
-
-import WorkLog from '#/domain/entities/WorkLog.js';
 
 describe('Integration: PrismaWorkLogRepository.findByDateRange', () => {
   it('Happy Path: должен построить корректный запрос фильтрации и вернуть массив WorkLog', async () => {

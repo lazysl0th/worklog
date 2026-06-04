@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 
-import { createMockWorkLog, filters, mockWorkLogRepository } from '../../../setup.js';
-
 import GetWorkLogs from '#/application/use-cases/WorkLog/GetWorkLogs.js';
 import WorkLog from '#/domain/entities/WorkLog.js';
+
+import { createMockWorkLog, filters, mockWorkLogRepository } from '../../../setup.js';
 
 describe('Unit: GetWorkLogs Use Case', () => {
   it('Happy Path: должен запросить логи из репозитория с переданными фильтрами', async () => {

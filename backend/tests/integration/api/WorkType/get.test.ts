@@ -3,10 +3,11 @@ import request from 'supertest';
 import { describe, it, expect } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 
-import { app, mockWorkTypeRepository } from '../../../setup.js';
-
 import type WorkType from '#/domain/entities/WorkType.js';
+
 import HttpStatusCode from '#/infrastructure/http/contstants/httpStatusCode.js';
+
+import { app, mockWorkTypeRepository } from '../../../setup.js';
 
 describe('API Integration: GET /work-types (Get List)', () => {
   it('Happy Path: должен успешно вернуть список типов работ через реальный контроллер', async () => {

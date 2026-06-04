@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 
-import { createMockWorkType, mockWorkTypeRepository } from '../../../setup.js';
-
 import GetWorkTypes from '#/application/use-cases/WorkType/GetWorkTypes.js';
+
+import { createMockWorkType, mockWorkTypeRepository } from '../../../setup.js';
 
 describe('Unit: GetWorkTypes Use Case', () => {
   it('Happy Path: должен вернуть массив типов работ из репозитория', async () => {
