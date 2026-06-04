@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { cls } from '@/shared/lib/cls';
+import { cls } from '@/shared';
 
 interface ContractorProps {
   readonly name: string;

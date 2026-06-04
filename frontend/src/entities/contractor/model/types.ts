@@ -7,4 +7,4 @@ export const contractorSchema = z
   })
   .readonly();
 
-export type TWorkType = z.infer<typeof contractorSchema>;
+export type TContractorType = z.infer<typeof contractorSchema>;
