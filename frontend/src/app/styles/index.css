@@ -1,34 +1,38 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Семантические цвета проекта */
-  --color-ui-border-main: : var(--color-gray-200);
-  --color-ui-border-light: var(--color-gray-100);
-  --color-ui-bg-card: var(--color-white);
-  --color-ui-bg-header: rgba(249, 250, 251, 0.75); /* gray-50/75 */
-  --color-ui-bg-hover: rgba(249, 250, 251, 0.5); /* gray-50/50 */
+  --color-ui-bg-main: var(--bg);
+  --color-ui-text-main: var(--text);
+  --color-ui-text-heading: var(--text-h);
 
-  /* Акцентные цвета для выделения (Selection) */
-  --color-ui-accent-bg: rgba(239, 246, 255, 0.2); /* blue-50/20 */
-  --color-ui-accent-hover: rgba(239, 246, 255, 0.4); /* blue-50/40 */
-  --color-ui-accent-solid: var(--color-blue-600);
+  --color-ui-border-main: var(--border-main);
+  --color-ui-border-light: var(--border-light);
+  --color-ui-bg-card: var(--bg-card);
+  --color-ui-bg-header: var(--bg-header);
+  --color-ui-bg-hover: var(--bg-hover);
 
-  /* Единые скругления для enterprise-интерфейса */
-  --radius-ui-container: 0.75rem; /* 12px - rounded-ui-container */
-  --radius-ui-control: 0.25rem; /* 4px - rounded-ui-control */
+  --color-ui-accent-bg: var(--accent-bg);
+  --color-ui-accent-hover: var(--accent-hover);
+  --color-ui-accent-solid: var(--accent-solid);
+
+  --radius-ui-container: 0.75rem;
+  --radius-ui-control: 0.25rem;
 }
 
-/*:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+:root {
+  --bg: var(--color-white);
+  --text: var(--color-gray-600);
+  --text-h: var(--color-gray-900);
+
+  --border-main: var(--color-gray-200);
+  --border-light: var(--color-gray-100);
+  --bg-card: var(--color-white);
+  --bg-header: rgba(249, 250, 251, 0.75); /* gray-50 c прозрачностью */
+  --bg-hover: rgba(249, 250, 251, 0.5);
+
+  --accent-bg: rgba(239, 246, 255, 0.5); /* blue-50 */
+  --accent-hover: rgba(219, 234, 254, 0.6); /* blue-100 */
+  --accent-solid: var(--color-blue-600);
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -51,25 +55,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+    --bg: var(--color-gray-950);
+    --text: var(--color-gray-400);
+    --text-h: var(--color-gray-100);
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --border-main: var(--color-gray-800);
+    --border-light: var(--color-gray-900);
+    --bg-card: var(--color-gray-900);
+    --bg-header: rgba(17, 24, 39, 0.75); /* gray-900 с прозрачностью */
+    --bg-hover: rgba(31, 41, 55, 0.5); /* gray-800 */
+
+    --accent-bg: rgba(30, 58, 138, 0.25); /* blue-950 */
+    --accent-hover: rgba(30, 58, 138, 0.45);
+    --accent-solid: var(--color-blue-500);
   }
-}*/
+}
 
 #root {
-  width: 1126px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -99,6 +101,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -108,21 +111,7 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
 }

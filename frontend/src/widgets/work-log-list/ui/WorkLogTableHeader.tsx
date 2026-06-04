@@ -1,5 +1,7 @@
+// Перешли на чистый тип ReactNode для синхронизации со всеми остальными компонентами
+import type { ReactNode } from 'react';
+
 import { flexRender, type HeaderGroup } from '@tanstack/react-table';
-import React from 'react';
 
 import type { TWorkLog } from '@/entities/work-log';
 
@@ -7,7 +9,7 @@ interface WorkLogTableHeaderProps {
   headerGroups: HeaderGroup<TWorkLog>[];
 }
 
-export function WorkLogTableHeader({ headerGroups }: WorkLogTableHeaderProps): React.JSX.Element {
+export function WorkLogTableHeader({ headerGroups }: WorkLogTableHeaderProps): ReactNode {
   return (
     <>
       {headerGroups.map((headerGroup) => {
@@ -38,12 +40,12 @@ export function WorkLogTableHeader({ headerGroups }: WorkLogTableHeaderProps): R
           <div
             key={headerGroup.id}
             style={{ gridTemplateColumns }}
-            className="grid place-items-center px-4 py-3 border-b border-ui-border-main bg-ui-bg-header gap-4"
+            className="grid items-center px-4 py-3 border-b border-ui-border-main bg-ui-bg-header gap-4"
           >
             {headerGroup.headers.map((header) => (
               <div
                 key={header.id}
-                className="text-xs font-semibold uppercase tracking-wider text-gray-500 overflow-hidden whitespace-nowrap"
+                className="text-xs font-semibold uppercase tracking-wider opacity-60 overflow-hidden whitespace-nowrap"
               >
                 {header.isPlaceholder
                   ? null
