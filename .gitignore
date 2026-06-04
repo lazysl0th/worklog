@@ -29,3 +29,5 @@ Thumbs.db
 *.swp
 
 backend/src/infrastructure/persistence/prisma/generated/
+backend/coverage
+backend/html
