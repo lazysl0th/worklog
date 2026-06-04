@@ -18,7 +18,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🧼 Run Linter Checks
-        run: npm run lint:backend
+        run: npm run lint
 
   build:
     name: Build Backend Verification

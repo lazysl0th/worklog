@@ -1,9 +1,6 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "useDefineForClassFields": true,
     "lib": ["DOM.Iterable"],
@@ -19,6 +16,6 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "strictNullChecks": true,
-    "noImplicitAny": true,
+    "noImplicitAny": true
   }
 }

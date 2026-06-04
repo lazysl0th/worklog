@@ -59,98 +59,101 @@ export default [
     },
   },
 
-{
-  files: ['frontend/**/*.{ts,tsx}'],
+  {
+    files: ['frontend/**/*.{ts,tsx}'],
 
-  languageOptions: {
-    globals: globals.browser,
-    parserOptions: {
-      projectService: true,
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: {
+        projectService: true,
+      },
+    },
+
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+
+    rules: {
+      ...reactHooks.configs.flat.recommended.rules,
+
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+
+      '@typescript-eslint/ban-ts-comment': [
+        'error',
+        {
+          'ts-ignore': true,
+          'ts-expect-error': true,
+          'ts-nocheck': true,
+          'ts-check': false,
+        },
+      ],
+
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSNonNullExpression',
+        },
+      ],
     },
   },
-
-  plugins: {
-    'react-hooks': reactHooks,
-    'react-refresh': reactRefresh,
-  },
-
-  rules: {
-    ...reactHooks.configs.flat.recommended.rules,
-
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-
-    '@typescript-eslint/ban-ts-comment': [
-      'error',
-      {
-        'ts-ignore': true,
-        'ts-expect-error': true,
-        'ts-nocheck': true,
-        'ts-check': false,
-      },
-    ],
-
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector: 'TSNonNullExpression',
-      },
-    ],
-  },
-},
 
   {
     files: ['frontend/src/**/*'],
     settings: {
-    'boundaries/elements': [
-      { type: 'app', pattern: 'frontend/src/app/*' },
-      { type: 'processes', pattern: 'frontend/src/processes/*' },
-      { type: 'pages', pattern: 'frontend/src/pages/*' },
-      { type: 'widgets', pattern: 'frontend/src/widgets/*' },
-      { type: 'features', pattern: 'frontend/src/features/*' },
-      { type: 'entities', pattern: 'frontend/src/entities/*' },
-      { type: 'shared', pattern: 'frontend/src/shared/*' },
-    ],
-  },
-  rules: {
-'boundaries/dependencies': [
-      'error',
-      {
-        default: 'disallow', // Запрещено всё, что не разрешено явно
-        rules: [
-          {
-            from: { type: 'app' },
-            allow: { to: { type: ['processes', 'pages', 'widgets', 'features', 'entities', 'shared', 'app'] } },
-          },
-          {
-            from: { type: 'processes' },
-            allow: { to: { type: ['pages', 'widgets', 'features', 'entities', 'shared', 'processes'] } },
-          },
-          {
-            from: { type: 'pages' },
-            allow: { to: { type: ['widgets', 'features', 'entities', 'shared', 'pages'] } },
-          },
-          {
-            from: { type: 'widgets' },
-            allow: { to: { type: ['features', 'entities', 'shared', 'widgets'] } },
-          },
-          {
-            from: { type: 'features' },
-            allow: { to: { type: ['entities', 'shared', 'features'] } },
-          },
-          {
-            from: { type: 'entities' },
-            allow: { to: { type: ['shared', 'entities'] } },
-          },
-          {
-            from: { type: 'shared' },
-            allow: { to: { type: ['shared'] } },
-          },
-        ],
-      },
-    ],
-  },
+      'boundaries/elements': [
+        { type: 'app', pattern: 'frontend/src/app/*' },
+        { type: 'processes', pattern: 'frontend/src/processes/*' },
+        { type: 'pages', pattern: 'frontend/src/pages/*' },
+        { type: 'widgets', pattern: 'frontend/src/widgets/*' },
+        { type: 'features', pattern: 'frontend/src/features/*' },
+        { type: 'entities', pattern: 'frontend/src/entities/*' },
+        { type: 'shared', pattern: 'frontend/src/shared/*' },
+      ],
+    },
+    rules: {
+      'boundaries/dependencies': [
+        'error',
+        {
+          default: 'disallow', // Запрещено всё, что не разрешено явно
+          rules: [
+            {
+              from: { type: 'app' },
+              allow: {
+                to: {
+                  type: ['processes', 'pages', 'widgets', 'features', 'entities', 'shared', 'app'],
+                },
+              },
+            },
+            {
+              from: { type: 'processes' },
+              allow: {
+                to: { type: ['pages', 'widgets', 'features', 'entities', 'shared', 'processes'] },
+              },
+            },
+            {
+              from: { type: 'pages' },
+              allow: { to: { type: ['widgets', 'features', 'entities', 'shared', 'pages'] } },
+            },
+            {
+              from: { type: 'widgets' },
+              allow: { to: { type: ['features', 'entities', 'shared', 'widgets'] } },
+            },
+            {
+              from: { type: 'features' },
+              allow: { to: { type: ['entities', 'shared', 'features'] } },
+            },
+            {
+              from: { type: 'entities' },
+              allow: { to: { type: ['shared', 'entities'] } },
+            },
+            {
+              from: { type: 'shared' },
+              allow: { to: { type: ['shared'] } },
+            },
+          ],
+        },
+      ],
+    },
   },
 ];
