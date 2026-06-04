@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { cls } from '@/shared/lib/cls';
+import { cls } from '@/shared';
 
 import { type TWorkLog } from '../model/types';
 
@@ -57,7 +57,7 @@ export function WorkLog({ workLog, workType, contractror, className }: WorkLogPr
             <span className="text-xs font-semibold text-gray-400 block mb-0.5">
               {t('workLog.description')}
             </span>
-            <p className="text-sm text-gray-600 dark:text-gray-400 break-words line-clamp-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400 wrap-break-word line-clamp-3">
               {workLog.description}
             </p>
           </div>

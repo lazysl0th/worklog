@@ -1,5 +1,4 @@
-import { providesList } from '@/shared/api';
-import { baseApi } from '@/shared/api/baseApi';
+import { baseApi, providesList } from '@/shared';
 
 import type { TWorkLog } from '../model/types';
 
@@ -7,7 +6,7 @@ export type CreateWorkLogDto = Readonly<Omit<TWorkLog, 'id' | 'createdAt' | 'upd
 
 export const workLogApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getWorkLogs: build.query<readonly TWorkLog[], void>({
+    getWorkLogs: build.query<TWorkLog[], void>({
       query: () => '/work-logs',
       providesTags: (result) => providesList(result, 'WorkLog'),
     }),

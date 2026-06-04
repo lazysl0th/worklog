@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 
 import { I18nProvider, StoreProvider } from './providers';
-import './index.css';
+import './styles/index.css';
 
 type AppProps = {
   readonly children: ReactNode;

@@ -43,7 +43,7 @@ const createContainer = () => {
       const routesController = controller.resolve(WorkLogController);
       const workLogValidations = controller.resolve(WORKLOG_VALIDATIONS_TOKEN);
       return {
-        path: '/work-types',
+        path: '/work-logs',
         router: createWorkLogRoutes(routesController, workLogValidations),
       };
     },
