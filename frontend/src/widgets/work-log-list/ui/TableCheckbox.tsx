@@ -1,7 +1,4 @@
-import { useEffect, useRef } from 'react';
-
-import { cls } from '@/shared';
-import { UI_THEME } from '@/shared/config';
+import { useEffect, useRef, type ReactNode } from 'react';
 
 interface TableCheckboxProps {
   checked: boolean;
@@ -16,8 +13,8 @@ export function TableCheckbox({
   indeterminate,
   onChange,
   ariaLabel,
-  className,
-}: TableCheckboxProps): React.JSX.Element {
+  className = '',
+}: TableCheckboxProps): ReactNode {
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -33,7 +30,13 @@ export function TableCheckbox({
       checked={checked}
       onChange={onChange}
       aria-label={ariaLabel}
-      className={cls(UI_THEME.control.checkbox, className)}
+      className={`
+        h-4 w-4 shrink-0 cursor-pointer rounded-sm border border-ui-border-main 
+        bg-ui-bg-card text-ui-accent-solid accent-ui-accent-solid
+        focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ui-accent-solid 
+        transition-colors
+        ${className}
+      `.trim()}
     />
   );
 }

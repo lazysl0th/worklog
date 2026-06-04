@@ -4,7 +4,8 @@ import {
   type RowSelectionState,
   type ColumnDef,
 } from '@tanstack/react-table';
-import React, { useMemo, useState, useCallback } from 'react';
+// Импортируем ReactNode для единообразия со всей кодовой базой
+import { useMemo, useState, useCallback, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useGetWorkLogsQuery, useWorkLogColumns, type TWorkLog } from '@/entities/work-log';
@@ -16,7 +17,7 @@ import { WorkLogTableHeader } from './WorkLogTableHeader';
 import { WorkLogTableRow } from './WorkLogTableRow';
 import { WorkLogToolbar } from './WorkLogToolbar';
 
-export function WorkLogList(): React.JSX.Element {
+export function WorkLogList(): ReactNode {
   const { t } = useTranslation();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -87,13 +88,17 @@ export function WorkLogList(): React.JSX.Element {
   }
 
   return (
-    <div className="flex flex-col w-full gap-4">
+    // Убрали w-full, блочный элемент div займет всю ширину автоматически
+    <div className="flex flex-col gap-4">
       <WorkLogToolbar selectedIds={selectedIds} onDeleteSuccess={() => setRowSelection({})} />
 
-      <div className="w-full overflow-x-auto border border-ui-border-main bg-ui-bg-card shadow-xs">
+      {/* Обертка таблицы: убрали w-full, добавили rounded-ui-container и overflow-hidden 
+          для скругления углов таблицы в соответствии с Вариантом 1 */}
+      <div className="overflow-x-auto overflow-hidden rounded-ui-container border border-ui-border-main bg-ui-bg-card shadow-xs">
         <div className="flex flex-col min-w-250">
           <WorkLogTableHeader headerGroups={table.getHeaderGroups()} />
 
+          {/* Разделители строк теперь завязаны на мягкий цвет ui-border-light */}
           <div className="flex flex-col divide-y divide-ui-border-light">
             {table.getRowModel().rows.map((row) => (
               <WorkLogTableRow key={row.id} row={row} />

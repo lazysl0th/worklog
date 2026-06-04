@@ -1,19 +1,20 @@
 import { type ReactNode } from 'react';
 
-import { cls } from '@/shared';
-
 interface ContractorProps {
   readonly name: string;
   readonly className?: string;
 }
 
-export function Contractor({ name, className }: ContractorProps): ReactNode {
+export function Contractor({ name, className = '' }: ContractorProps): ReactNode {
   return (
     <span
-      className={cls(
-        'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/60',
-        className,
-      )}
+      className={`
+        inline-flex items-center gap-1.5 px-2.5 py-1 
+        rounded-ui-control text-xs font-medium border
+        bg-ui-accent-solid/10 text-ui-accent-solid border-ui-accent-solid/20
+        
+        ${className}
+      `.trim()}
     >
       <span className="font-semibold">{name}</span>
     </span>

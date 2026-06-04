@@ -1,4 +1,5 @@
-import React from 'react';
+import type { ReactNode } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 interface WorkLogToolbarProps {
@@ -8,16 +9,16 @@ interface WorkLogToolbarProps {
 
 export function WorkLogToolbar({
   selectedIds,
-  //onDeleteSuccess,
-}: WorkLogToolbarProps): React.JSX.Element {
+  // onDeleteSuccess,
+}: WorkLogToolbarProps): ReactNode {
   const { t } = useTranslation();
   const hasSelected = selectedIds.length > 0;
 
   return (
-    <div className="flex items-center justify-between p-4 border-ui-border-main bg-ui-bg-hover">
+    <div className="flex items-center justify-between p-4 border border-ui-border-main bg-ui-bg-card rounded-ui-container shadow-xs">
       <div className="flex items-center gap-3 min-h-10">
         {hasSelected && (
-          <span className="text-xs font-medium text-gray-500 animate-fade-in">
+          <span className="text-xs font-medium opacity-60 animate-fade-in">
             {t('workLogList.selectedCount', 'Выбрано элементов: {{count}}', {
               count: selectedIds.length,
             })}
