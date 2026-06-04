@@ -1,10 +1,9 @@
 import { randomUUID } from 'crypto';
-
 import { describe, it, expect } from 'vitest';
 
-import { mockWorkLogRepository } from '../../../setup.js';
-
 import DeleteWorkLogs from '#/application/use-cases/WorkLog/DeleteWorkLogs.js';
+
+import { mockWorkLogRepository } from '../../../setup.js';
 
 describe('Unit: DeleteWorkLogs Use Case', () => {
   it('Happy Path: должен вызвать метод удаления в репозитории с массивом ID', async () => {

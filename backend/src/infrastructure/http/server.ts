@@ -1,22 +1,21 @@
-import http from 'http';
-
 import { createTerminus } from '@godaddy/terminus';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import http from 'http';
 import { container } from 'tsyringe';
 
+import { CONFIG_TOKEN } from '#/application/interfaces/IConfig.js';
+
 import type { IAppRoute } from '../config/container.js';
+
 import CorsService from '../services/CorsService.js';
 import PrismaService from '../services/PrismaService.js';
 import ServerErrorsService from '../services/ServerErrorsService.js';
 import ServerListenService from '../services/ServerListenService.js';
 import TerminusService from '../services/TerminusService.js';
-
 import errorsHandler from './middleware/errorsHandler.js';
 import limiter from './middleware/limiter.js';
-
-import { CONFIG_TOKEN } from '#/application/interfaces/IConfig.js';
 
 const bootstrap = async () => {
   const config = container.resolve(CONFIG_TOKEN);

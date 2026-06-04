@@ -1,4 +1,5 @@
 import type { CorsOptions } from 'cors';
+
 import { injectable, inject } from 'tsyringe';
 
 import { CONFIG_TOKEN, type TCorsConfig } from '#/application/interfaces/IConfig.js';

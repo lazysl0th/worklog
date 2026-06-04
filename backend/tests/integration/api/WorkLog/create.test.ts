@@ -3,10 +3,10 @@ import request from 'supertest';
 import { describe, it, expect } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 
-import { app, contractorId, mockWorkLogRepository, workTypeId } from '../../../setup.js';
-
 import WorkLog from '#/domain/entities/WorkLog.js';
 import HttpStatusCode from '#/infrastructure/http/contstants/httpStatusCode.js';
+
+import { app, contractorId, mockWorkLogRepository, workTypeId } from '../../../setup.js';
 
 describe('API Integration: POST /work-logs (Create)', () => {
   it('Happy Path: должен вернуть 201 Created через реальный контроллер', async () => {

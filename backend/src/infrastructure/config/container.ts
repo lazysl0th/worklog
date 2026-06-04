@@ -1,5 +1,10 @@
 import type { Router } from 'express';
+
 import { container } from 'tsyringe';
+
+import type ILogger from '#/application/interfaces/ILogger.js';
+
+import { CONFIG_TOKEN } from '#/application/interfaces/IConfig.js';
 
 import WorkLogController from '../http/controllers/WorkLogController.js';
 import WorkTypeController from '../http/controllers/WorkTypeController.js';
@@ -12,11 +17,7 @@ import { PrismaWorkLogRepository } from '../persistence/repository/PrismaWorkLog
 import { PrismaWorkTypeRepository } from '../persistence/repository/PrismaWorkTypeRepository.js';
 import { translator, type ITranslator } from '../services/i18n/i18n.js';
 import LoggerService from '../services/LoggerService.js';
-
 import config from './env.js';
-
-import { CONFIG_TOKEN } from '#/application/interfaces/IConfig.js';
-import type ILogger from '#/application/interfaces/ILogger.js';
 
 export interface IAppRoute {
   readonly path: string;

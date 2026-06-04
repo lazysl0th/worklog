@@ -1,0 +1,24 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "useDefineForClassFields": true,
+    "lib": ["DOM.Iterable"],
+
+    /* Bundler mode */
+    "isolatedModules": true,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+  }
+}

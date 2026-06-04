@@ -2,10 +2,11 @@ import type { Server } from 'http';
 
 import { inject, injectable } from 'tsyringe';
 
-import type { ITranslator } from './i18n/i18n.js';
+import type ILogger from '#/application/interfaces/ILogger.js';
 
 import { CONFIG_TOKEN, type TPort } from '#/application/interfaces/IConfig.js';
-import type ILogger from '#/application/interfaces/ILogger.js';
+
+import type { ITranslator } from './i18n/i18n.js';
 
 @injectable()
 export default class ServerErrorsService {

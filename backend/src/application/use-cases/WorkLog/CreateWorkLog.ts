@@ -1,9 +1,9 @@
 import { randomUUID } from 'crypto';
-
 import { injectable, inject } from 'tsyringe';
 
-import { type TCreateWorkLogDto } from '#/application/dtos/WorkLogDTO.js';
 import type IWorkLogRepository from '#/application/interfaces/IWorkLogRepository.js';
+
+import { type TCreateWorkLogDto } from '#/application/dtos/WorkLogDTO.js';
 import WorkLog from '#/domain/entities/WorkLog.js';
 
 @injectable()

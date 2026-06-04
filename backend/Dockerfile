@@ -33,5 +33,4 @@ ENV PORT=3001
 
 EXPOSE 3001
 
-# Запуск приложения из корня
 CMD ["node", "backend/dist/index.js"]

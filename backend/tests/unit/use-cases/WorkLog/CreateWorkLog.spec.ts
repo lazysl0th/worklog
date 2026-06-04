@@ -1,13 +1,13 @@
 import { randomUUID } from 'crypto';
-
 import { describe, it, expect } from 'vitest';
 
-import { mockWorkLogRepository } from '../../../setup.js';
-
 import type { TCreateWorkLogDto } from '#/application/dtos/WorkLogDTO.js';
+
 import CreateWorkLog from '#/application/use-cases/WorkLog/CreateWorkLog.js';
 import WorkLog from '#/domain/entities/WorkLog.js';
 import { EnumMeasurementValue } from '#/domain/value-objects/MeasurementUnit.js';
+
+import { mockWorkLogRepository } from '../../../setup.js';
 
 describe('Unit: CreateWorkLog Use Case', () => {
   it('Happy Path: должен успешно создать и сохранить запись журнала работ', async () => {

@@ -1,11 +1,12 @@
 import type { ErrorRequestHandler } from 'express';
-import { ZodError } from 'zod';
 
-import HttpStatusCode from '../contstants/httpStatusCode.js';
-import httpResponseMap from '../contstants/responses.js';
+import { ZodError } from 'zod';
 
 import DomainError from '#/domain/errors/DomainError.js';
 import ValidationError from '#/domain/errors/ValidationError.js';
+
+import HttpStatusCode from '../contstants/httpStatusCode.js';
+import httpResponseMap from '../contstants/responses.js';
 
 const errorsHandler: ErrorRequestHandler = (e, _, res, next) => {
   console.log(e);

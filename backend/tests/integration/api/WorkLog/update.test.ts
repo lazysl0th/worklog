@@ -3,11 +3,12 @@ import request from 'supertest';
 import { describe, it, expect } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 
-import { mockWorkLogRepository, app, createMockWorkLog, workLogId } from '../../../setup.js';
-
 import type WorkLog from '#/domain/entities/WorkLog.js';
+
 import NotFoundError from '#/domain/errors/NotFoundError.js';
 import HttpStatusCode from '#/infrastructure/http/contstants/httpStatusCode.js';
+
+import { mockWorkLogRepository, app, createMockWorkLog, workLogId } from '../../../setup.js';
 
 describe('API Integration: PATCH /work-logs/:id (Update)', () => {
   it('Happy Path: должен успешно обновить журнал через реальный контроллер и валидатор', async () => {

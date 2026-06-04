@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
 
+import WorkType from '#/domain/entities/WorkType.js';
+
 import {
   createMockWorkType,
   prismaMock,
   createDbMockWorkTypeRecord,
   prismaWorkTypeRepository,
 } from '../../../setup.js';
-
-import WorkType from '#/domain/entities/WorkType.js';
 
 describe('Integration: PrismaWorkTypeRepository.save', () => {
   it('Happy Path: должен успешно выполнить upsert для сущности WorkType и вернуть её инстанс', async () => {

@@ -2,10 +2,10 @@ import 'dotenv/config';
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 
+import bootstrap from '#/infrastructure/http/server.js';
+
 import createContainer from './infrastructure/config/container.js';
 import CriticalErrorsService from './infrastructure/services/CriticalErrorsService.js';
-
-import bootstrap from '#/infrastructure/http/server.js';
 
 createContainer();
 

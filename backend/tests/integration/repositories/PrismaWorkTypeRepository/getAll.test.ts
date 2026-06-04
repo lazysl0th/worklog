@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
 
+import WorkType from '#/domain/entities/WorkType.js';
+
 import {
   createDbMockWorkTypeRecord,
   prismaMock,
   prismaWorkTypeRepository,
 } from '../../../setup.js';
-
-import WorkType from '#/domain/entities/WorkType.js';
 
 describe('Integration: PrismaWorkTypeRepository.findAll', () => {
   it('Happy Path: должен вернуть массив всех типов работ, где каждый элемент является инстансом WorkType', async () => {

@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
+import WorkType from '#/domain/entities/WorkType.js';
+
 import {
   createDbMockWorkTypeRecord,
   prismaMock,
@@ -7,8 +9,6 @@ import {
   createMockWorkType,
   prismaWorkTypeRepository,
 } from '../../../setup.js';
-
-import WorkType from '#/domain/entities/WorkType.js';
 
 describe('Integration: PrismaWorkTypeRepository.findById', () => {
   it('Happy Path: должен вернуть инстанс WorkType, если запись найдена', async () => {
