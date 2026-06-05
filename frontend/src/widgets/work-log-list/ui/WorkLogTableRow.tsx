@@ -1,15 +1,16 @@
-import type { ReactNode } from 'react';
-
 import { flexRender, type Row } from '@tanstack/react-table';
-import { Link } from 'react-router-dom';
+import { memo, type ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import type { TWorkLog } from '@/entities/work-log';
 
 interface WorkLogTableRowProps {
   row: Row<TWorkLog>;
+  isSelected: boolean;
 }
 
-export function WorkLogTableRow({ row }: WorkLogTableRowProps): ReactNode {
+export const WorkLogTableRow = memo(({ row, isSelected }: WorkLogTableRowProps): ReactNode => {
+  const navigate = useNavigate();
   const gridTemplateColumns = row
     .getVisibleCells()
     .map((cell) => {
@@ -34,10 +35,10 @@ export function WorkLogTableRow({ row }: WorkLogTableRowProps): ReactNode {
     })
     .join(' ');
 
-  const isSelected = row.getIsSelected();
+  //const isSelected = row.getIsSelected();
 
   return (
-    <div
+    <tr
       style={{ gridTemplateColumns }}
       data-selected={isSelected}
       className="
@@ -48,18 +49,16 @@ export function WorkLogTableRow({ row }: WorkLogTableRowProps): ReactNode {
         data-[selected=true]:bg-ui-accent-bg 
         data-[selected=true]:hover:bg-ui-accent-hover
       "
+      onClick={() => navigate(`/work-logs/${row.original.id}`)}
     >
       {row.getVisibleCells().map((cell) => (
-        <Link
+        <td
           key={cell.id}
-          to={`/work-logs/${row.original.id}`}
-          className="hover:text-blue-400 transition-colors font-medium cursor-pointer"
+          className="flex overflow-hidden justify-center hover:text-blue-400 transition-colors font-medium cursor-pointer"
         >
-          <div key={cell.id} className="flex overflow-hidden justify-center">
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-          </div>
-        </Link>
+          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+        </td>
       ))}
-    </div>
+    </tr>
   );
-}
+});

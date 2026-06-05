@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 
-interface TableCheckboxProps {
+interface TableCheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   checked: boolean;
   indeterminate?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,19 +24,26 @@ export function TableCheckbox({
   }, [indeterminate]);
 
   return (
-    <input
-      type="checkbox"
-      ref={ref}
-      checked={checked}
-      onChange={onChange}
-      aria-label={ariaLabel}
-      className={`
+    <div
+      className="inline-flex items-center"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      <input
+        type="checkbox"
+        ref={ref}
+        checked={checked}
+        onChange={onChange}
+        aria-label={ariaLabel}
+        className={`
         h-4 w-4 shrink-0 cursor-pointer rounded-sm border border-ui-border-main 
         bg-ui-bg-card text-ui-accent-solid accent-ui-accent-solid
         focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ui-accent-solid 
         transition-colors
         ${className}
       `.trim()}
-    />
+      />
+    </div>
   );
 }

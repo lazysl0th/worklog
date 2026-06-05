@@ -11,7 +11,7 @@ interface WorkLogTableHeaderProps {
 
 export function WorkLogTableHeader({ headerGroups }: WorkLogTableHeaderProps): ReactNode {
   return (
-    <>
+    <thead>
       {headerGroups.map((headerGroup) => {
         const gridTemplateColumns = headerGroup.headers
           .map((item) => {
@@ -37,24 +37,24 @@ export function WorkLogTableHeader({ headerGroups }: WorkLogTableHeaderProps): R
           .join(' ');
 
         return (
-          <div
+          <tr
             key={headerGroup.id}
             style={{ gridTemplateColumns }}
             className="grid items-center px-4 py-3 border-b border-ui-border-main bg-ui-bg-header gap-4"
           >
             {headerGroup.headers.map((header) => (
-              <div
+              <th
                 key={header.id}
                 className="text-xs font-semibold uppercase tracking-wider opacity-60 overflow-hidden whitespace-nowrap"
               >
                 {header.isPlaceholder
                   ? null
                   : flexRender(header.column.columnDef.header, header.getContext())}
-              </div>
+              </th>
             ))}
-          </div>
+          </tr>
         );
       })}
-    </>
+    </thead>
   );
 }
