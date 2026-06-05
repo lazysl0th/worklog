@@ -1,24 +1,24 @@
-interface IWorkTypeProps {
+interface IContractorsProps {
   id: string;
-  name: string;
+  fullName: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export default class WorkType {
+export default class Contractor {
   readonly id: string;
-  readonly name: string;
+  readonly fullName: string;
   readonly createdAt: Date;
   readonly updatedAt: Date;
 
-  constructor(props: IWorkTypeProps) {
+  constructor(props: IContractorsProps) {
     this.id = props.id;
-    this.name = props.name;
+    this.fullName = props.fullName;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
   }
 
   public toJSON() {
-    return { id: this.id, name: this.name };
+    return { id: this.id, fullName: this.fullName };
   }
 }

@@ -4,12 +4,12 @@ import {
   type RowSelectionState,
   type ColumnDef,
 } from '@tanstack/react-table';
-// Импортируем ReactNode для единообразия со всей кодовой базой
 import { useMemo, useState, useCallback, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Contractor } from '@/entities/contractor';
 import { useGetWorkLogsQuery, useWorkLogColumns, type TWorkLog } from '@/entities/work-log';
-import { useGetWorkTypesQuery, WorkType, type TWorkType } from '@/entities/work-type';
+import { WorkType } from '@/entities/work-type';
 import { TableLoadingState, TableEmptyState } from '@/shared';
 
 import { TableCheckbox } from './TableCheckbox';
@@ -21,25 +21,17 @@ export function WorkLogList(): ReactNode {
   const { t } = useTranslation();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const { data: workLogs, isLoading: isLogsLoading } = useGetWorkLogsQuery();
-  const { data: workTypes, isLoading: isTypesLoading } = useGetWorkTypesQuery();
+  const { data: workLogs = [], isLoading: isLogsLoading } = useGetWorkLogsQuery();
 
-  // Индексируем типы работ для быстрого поиска O(1)
-  const workTypesMap = useMemo(() => {
-    const map = new Map<string, TWorkType>();
-    if (workTypes) workTypes.forEach((type) => map.set(type.id, type));
-    return map;
-  }, [workTypes]);
+  const renderWorkType = useCallback((workTypeName: string) => {
+    return <WorkType name={workTypeName} />;
+  }, []);
 
-  const renderWorkType = useCallback(
-    (workTypeId: string) => {
-      const workType = workTypesMap.get(workTypeId);
-      return <WorkType name={workType?.name || ''} />;
-    },
-    [workTypesMap],
-  );
+  const renderContractor = useCallback((contractorFullName: string) => {
+    return <Contractor name={contractorFullName} />;
+  }, []);
 
-  const entityColumns = useWorkLogColumns({ renderWorkType });
+  const entityColumns = useWorkLogColumns({ renderWorkType, renderContractor });
 
   const columns = useMemo<ColumnDef<TWorkLog>[]>(
     () => [
@@ -67,10 +59,8 @@ export function WorkLogList(): ReactNode {
     [entityColumns, t],
   );
 
-  const stableTableData = useMemo(() => (workLogs ? [...workLogs] : []), [workLogs]);
-
   const table = useReactTable({
-    data: stableTableData,
+    data: workLogs,
     columns,
     state: { rowSelection },
     onRowSelectionChange: setRowSelection,
@@ -79,26 +69,22 @@ export function WorkLogList(): ReactNode {
 
   const selectedIds = useMemo(() => {
     return Object.keys(rowSelection)
-      .map((index) => stableTableData[Number(index)]?.id)
+      .map((index) => workLogs[Number(index)]?.id)
       .filter((id): id is string => Boolean(id));
-  }, [rowSelection, stableTableData]);
+  }, [rowSelection, workLogs]);
 
-  if (isLogsLoading || isTypesLoading) {
+  if (isLogsLoading) {
     return <TableLoadingState message={t('workLogList.loading')} />;
   }
 
   return (
-    // Убрали w-full, блочный элемент div займет всю ширину автоматически
     <div className="flex flex-col gap-4">
       <WorkLogToolbar selectedIds={selectedIds} onDeleteSuccess={() => setRowSelection({})} />
 
-      {/* Обертка таблицы: убрали w-full, добавили rounded-ui-container и overflow-hidden 
-          для скругления углов таблицы в соответствии с Вариантом 1 */}
       <div className="overflow-x-auto overflow-hidden rounded-ui-container border border-ui-border-main bg-ui-bg-card shadow-xs">
         <div className="flex flex-col min-w-250">
           <WorkLogTableHeader headerGroups={table.getHeaderGroups()} />
 
-          {/* Разделители строк теперь завязаны на мягкий цвет ui-border-light */}
           <div className="flex flex-col divide-y divide-ui-border-light">
             {table.getRowModel().rows.map((row) => (
               <WorkLogTableRow key={row.id} row={row} />

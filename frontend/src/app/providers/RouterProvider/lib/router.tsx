@@ -12,6 +12,10 @@ const WorkLogPageLazy = lazy(() =>
   import('@/pages/work-log').then((module) => ({ default: module.WorkLogPage })),
 );
 
+const CreateWorkLogPageLazy = lazy(() =>
+  import('@/pages/work-log').then((module) => ({ default: module.CreateWorkLogPage })),
+);
+
 const ErrorPageLazy = lazy(() =>
   import('@/pages/error-page').then((module) => ({ default: module.ErrorPage })),
 );
@@ -38,6 +42,14 @@ export const router = createBrowserRouter([
             element: (
               <Suspense fallback={<PageSkeleton />}>
                 <WorkLogsPageLazy />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'create',
+            element: (
+              <Suspense fallback={<PageSkeleton />}>
+                <CreateWorkLogPageLazy />
               </Suspense>
             ),
           },

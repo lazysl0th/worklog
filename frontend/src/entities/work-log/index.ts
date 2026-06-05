@@ -7,7 +7,6 @@ export {
   workTypeUnitSchema,
 } from './model/types';
 
-export { workLogApi, useGetWorkLogsQuery, useCreateWorkLogMutation } from './api/workLogApi';
-export type { CreateWorkLogDto } from './api/workLogApi';
+export { workLogApi, useGetWorkLogsQuery } from './api/workLogApi';
 
 export { useWorkLogColumns } from './lib/useWorkLogColumns';

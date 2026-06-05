@@ -9,7 +9,7 @@ import {
   prismaWorkLogRepository,
 } from '../../../setup.js';
 
-describe('Integration: PrismaWorkLogRepository.findByDateRange', () => {
+describe('Integration: PrismaWorkLogRepository.getByDateRange', () => {
   it('Happy Path: должен построить корректный запрос фильтрации и вернуть массив WorkLog', async () => {
     const dbRecords = [createMockDbWorkLogRecord()];
 
@@ -27,9 +27,10 @@ describe('Integration: PrismaWorkLogRepository.findByDateRange', () => {
         },
       },
       orderBy: { date: 'asc' },
+      include: { workType: true, contractor: true },
     });
   });
-  describe('Integration: PrismaWorkLogRepository.findByDateRange', () => {
+  describe('Integration: PrismaWorkLogRepository.getByDateRange', () => {
     it('Edge Case: должен работать без фильтров и с дефолтной сортировкой (desc)', async () => {
       prismaMock.workLog.findMany.mockResolvedValue([]);
 
@@ -38,6 +39,7 @@ describe('Integration: PrismaWorkLogRepository.findByDateRange', () => {
       expect(prismaMock.workLog.findMany).toHaveBeenCalledWith({
         where: { date: {} },
         orderBy: { date: 'desc' },
+        include: { workType: true, contractor: true },
       });
     });
 
@@ -49,6 +51,7 @@ describe('Integration: PrismaWorkLogRepository.findByDateRange', () => {
       expect(prismaMock.workLog.findMany).toHaveBeenCalledWith({
         where: { date: { gte: filters.startDate } },
         orderBy: { date: 'desc' },
+        include: { workType: true, contractor: true },
       });
     });
 
@@ -60,6 +63,7 @@ describe('Integration: PrismaWorkLogRepository.findByDateRange', () => {
       expect(prismaMock.workLog.findMany).toHaveBeenCalledWith({
         where: { date: { lte: filters.endDate } },
         orderBy: { date: 'desc' },
+        include: { workType: true, contractor: true },
       });
     });
   });

@@ -31,8 +31,8 @@ describe('Unit: CreateWorkLog Use Case', () => {
     expect(result.id).toBeDefined();
     expect(typeof result.id).toBe('string');
     expect(result.date).toEqual(dto.date);
-    expect(result.workTypeId).toBe(dto.workTypeId);
-    expect(result.contractorId).toBe(dto.contractorId);
+    expect(result.workType.id).toBe(dto.workTypeId);
+    expect(result.contractor.id).toBe(dto.contractorId);
     expect(result.unit.value).toBe(dto.unit);
 
     expect(result.volume).toBe(145.68);

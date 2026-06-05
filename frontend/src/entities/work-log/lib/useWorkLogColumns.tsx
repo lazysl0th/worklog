@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next';
 import type { TWorkLog } from '../model/types';
 
 interface UseWorkLogColumnsProps {
-  renderWorkType: (workTypeId: string) => ReactNode;
+  renderWorkType: (workTypeName: string) => ReactNode;
+  renderContractor: (contractorFullName: string) => ReactNode;
 }
 
 export function useWorkLogColumns({
   renderWorkType,
+  renderContractor,
 }: UseWorkLogColumnsProps): ColumnDef<TWorkLog>[] {
   const { t } = useTranslation();
 
@@ -17,17 +19,17 @@ export function useWorkLogColumns({
     () => [
       {
         accessorKey: 'date',
-        header: () => t('workLog.columns.date', 'Дата'),
+        header: () => t('workLog.list.columns.date'),
         cell: ({ row }) => new Date(row.original.date).toLocaleDateString(),
       },
       {
         id: 'workType',
-        header: () => t('workLog.columns.workType', 'Тип работ'),
-        cell: ({ row }) => renderWorkType(row.original.workTypeId),
+        header: () => t('workLog.list.columns.workType'),
+        cell: ({ row }) => renderWorkType(row.original.workType.name),
       },
-      {
+      /*{
         accessorKey: 'description',
-        header: () => t('workLog.columns.title', 'Описание работ'),
+        header: () => t('workLog.list.columns.description'),
         cell: ({ row }) => (
           <span
             className="font-medium text-gray-900 truncate"
@@ -36,30 +38,26 @@ export function useWorkLogColumns({
             {row.original.description}
           </span>
         ),
-      },
+      },*/
       {
         accessorKey: 'volume',
-        header: () => t('workLog.columns.volume', 'Объем'),
+        header: () => t('workLog.list.columns.volume'),
         cell: ({ row }) => (
           <span className="font-mono text-right w-full">{row.original.volume}</span>
         ),
       },
       {
         accessorKey: 'unit',
-        header: () => t('workLog.columns.unit', 'Ед. изм.'),
+        header: () => t('workLog.list.columns.unit'),
         cell: ({ row }) => <span className="text-gray-500">{row.original.unit}</span>,
       },
       {
         accessorKey: 'contractrorName',
         id: 'contractror',
-        header: () => t('workLog.columns.executor', 'Исполнитель'),
-        cell: ({ row }) => (
-          <span className="text-sm text-gray-600 truncate" title={row.original.contractorId}>
-            {row.original.contractorId}
-          </span>
-        ),
+        header: () => t('workLog.list.columns.contractor'),
+        cell: ({ row }) => renderContractor(row.original.contractor.fullName),
       },
     ],
-    [renderWorkType, t],
+    [renderWorkType, renderContractor, t],
   );
 }

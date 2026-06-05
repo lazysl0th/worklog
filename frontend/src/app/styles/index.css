@@ -59,8 +59,8 @@
     --text: var(--color-gray-400);
     --text-h: var(--color-gray-100);
 
-    --border-main: var(--color-gray-800);
-    --border-light: var(--color-gray-900);
+    --border-main: var(--color-white-800);
+    --border-light: var(--color-white-900);
     --bg-card: var(--color-gray-900);
     --bg-header: rgba(17, 24, 39, 0.75); /* gray-900 с прозрачностью */
     --bg-hover: rgba(31, 41, 55, 0.5); /* gray-800 */

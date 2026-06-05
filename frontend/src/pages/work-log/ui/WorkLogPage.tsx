@@ -7,7 +7,7 @@ import { WorkLog, type TWorkLog } from '@/entities/work-log';
 
 export function WorkLogPage(): ReactNode {
   const { id } = useParams<{ readonly id: string }>();
-  const { t } = useTranslation('workLogDetails');
+  const { t } = useTranslation();
 
   if (!id) {
     return (
@@ -19,8 +19,9 @@ export function WorkLogPage(): ReactNode {
   const mockData: TWorkLog = {
     id: id ?? 'unknown',
     date: new Date('05.06.2026'),
-    contractorId: 'ООО «МонолитСтрой»',
-    workTypeId: 'Укладка бетонной смеси B25',
+    contractor: { id: '1', fullName: 'ООО «МонолитСтрой»' },
+    workType: { name: 'Укладка бетонной смеси B25', id: '1' },
+    description: '',
     volume: 120,
     unit: 'M3',
     createdAt: new Date(),

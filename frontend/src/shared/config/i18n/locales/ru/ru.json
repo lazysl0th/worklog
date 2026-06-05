@@ -5,5 +5,52 @@
   },
   "errors": {
     "critical": "Критическая ошибка инициализации. Пожалуйста, перезагрузите страницу."
+  },
+  "common": {
+    "placeholders": {
+      "select": "Выберите..."
+    }
+  },
+  "workLog": {
+    "validation": {
+      "dateRequired": "Укажите дату",
+      "dateInvalid": "Некорректная дата",
+      "workTypeRequired": "Выберите вид работ",
+      "volumeRequired": "Укажите объём работ",
+      "volumeInvalid": "Некорректное значение объёма",
+      "volumeGreaterThanZero": "Объём работ должен быть больше 0",
+      "unitRequired": "Выберите единицу измерения",
+      "executorRequired": "Укажите исполнителя",
+      "executorMinLength": "Имя исполнителя должно содержать минимум 2 символа",
+      "descriptionRequired": "Укажите описание работ",
+      "descriptionMaxLength": "Описание работ не должно превышать 1000 символов"
+    },
+    "form": {
+      "title": "Добавление записи",
+      "subtitle": "Заполните данные о выполненных работах",
+      "submit": "Сохранить",
+      "fields": {
+        "date": "Дата выполнения",
+        "workType": "Тип работ",
+        "volume": "Объем",
+        "unit": "Ед. изм.",
+        "description": "Описание",
+        "contractor": "Исполнитель"
+      }
+    },
+    "entity": {
+      "title": "Запись",
+      "subtitle": "Информация о выполненных работах"
+    },
+    "list": {
+      "columns": {
+        "date": "Дата",
+        "workType": "Тип работ",
+        "volume": "Объем",
+        "unit": "Ед. изм.",
+        "description": "Описание",
+        "contractor": "Исполнитель"
+      }
+    }
   }
 }

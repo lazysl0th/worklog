@@ -1,10 +1,5 @@
-import { z } from 'zod';
+import type z from 'zod';
 
-export const workTypeSchema = z
-  .object({
-    id: z.string(),
-    name: z.string().min(1),
-  })
-  .readonly();
+import type { workTypeSchema } from '@/shared/api';
 
 export type TWorkType = z.infer<typeof workTypeSchema>;

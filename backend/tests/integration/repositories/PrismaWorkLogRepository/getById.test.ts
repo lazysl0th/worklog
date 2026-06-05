@@ -18,6 +18,7 @@ describe('Integration: PrismaWorkLogRepository.findById', () => {
     expect(result).toBeInstanceOf(WorkLog);
     expect(prismaMock.workLog.findUnique).toHaveBeenCalledWith({
       where: { id: createMockDbWorkLogRecord().id },
+      include: { workType: true, contractor: true },
     });
   });
 

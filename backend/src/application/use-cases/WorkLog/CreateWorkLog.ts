@@ -16,10 +16,10 @@ export default class CreateWorkLog {
     const workLog = new WorkLog({
       id: randomUUID(),
       date: workLogDto.date,
-      workTypeId: workLogDto.workTypeId,
+      workType: { id: workLogDto.workTypeId },
       volume: workLogDto.volume,
       unit: workLogDto.unit,
-      contractorId: workLogDto.contractorId,
+      contractor: { id: workLogDto.contractorId },
       createdAt: new Date(),
       updatedAt: new Date(),
     });

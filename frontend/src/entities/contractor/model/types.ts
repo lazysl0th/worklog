@@ -1,10 +1,5 @@
-import { z } from 'zod';
+import type z from 'zod';
 
-export const contractorSchema = z
-  .object({
-    id: z.string(),
-    name: z.string().min(1),
-  })
-  .readonly();
+import type { contractorSchema } from '@/shared/api';
 
 export type TContractorType = z.infer<typeof contractorSchema>;
