@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
 import { flexRender, type Row } from '@tanstack/react-table';
+import { Link } from 'react-router-dom';
 
 import type { TWorkLog } from '@/entities/work-log';
-import { Link } from 'react-router-dom';
 
 interface WorkLogTableRowProps {
   row: Row<TWorkLog>;
@@ -51,6 +51,7 @@ export function WorkLogTableRow({ row }: WorkLogTableRowProps): ReactNode {
     >
       {row.getVisibleCells().map((cell) => (
         <Link
+          key={cell.id}
           to={`/work-logs/${row.original.id}`}
           className="hover:text-blue-400 transition-colors font-medium cursor-pointer"
         >
