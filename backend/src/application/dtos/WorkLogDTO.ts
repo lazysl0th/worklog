@@ -2,6 +2,12 @@ import { array, z } from 'zod';
 
 import { EnumMeasurementValue } from '#/domain/value-objects/MeasurementUnit.js';
 
+export const getWorkLogSchema = z.object({
+  params: z.object({
+    id: z.uuid(),
+  }),
+});
+
 export const getWorkLogsSchema = z.object({
   query: z.object({
     startDate: z.coerce.date().optional(),
@@ -20,10 +26,8 @@ export const createWorkLogSchema = z.object({
   }),
 });
 
-export const updateWorkLogSchema = createWorkLogSchema.extend({
-  params: z.object({
-    id: z.uuid(),
-  }),
+export const updateWorkLogSchema = z.object({
+  params: getWorkLogSchema.shape.params,
   body: createWorkLogSchema.shape.body.partial(),
 });
 
@@ -36,6 +40,8 @@ export const deleteWorkLogSchema = z.object({
 export const deleteWorkLogsSchema = updateWorkLogSchema.pick({ params: true });
 
 export type TGetWorkLogsDto = z.infer<typeof getWorkLogsSchema>['query'];
+
+export type TGetWorkLogDto = z.infer<typeof getWorkLogSchema>['params'];
 
 export type TCreateWorkLogDto = z.infer<typeof createWorkLogSchema>['body'];
 

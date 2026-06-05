@@ -5,6 +5,7 @@ import { injectable, inject } from 'tsyringe';
 import type {
   TCreateWorkLogDto,
   TDeleteWorkLogDto,
+  TGetWorkLogDto,
   TGetWorkLogsDto,
   TUpdateWorkLogBody,
   TUpdateWorkLogParams,
@@ -14,6 +15,7 @@ import type WorkLog from '#/domain/entities/WorkLog.js';
 
 import CreateWorkLog from '#/application/use-cases/WorkLog/CreateWorkLog.js';
 import DeleteWorkLogs from '#/application/use-cases/WorkLog/DeleteWorkLogs.js';
+import GetWorkLog from '#/application/use-cases/WorkLog/GetWorkLog.js';
 import GetWorkLogs from '#/application/use-cases/WorkLog/GetWorkLogs.js';
 import UpdateWorkLog from '#/application/use-cases/WorkLog/UpdateWorkLog.js';
 
@@ -23,6 +25,7 @@ import HttpStatusCode from '../contstants/httpStatusCode.js';
 export default class WorkLogController {
   constructor(
     @inject(GetWorkLogs) private readonly getAll: GetWorkLogs,
+    @inject(GetWorkLog) private readonly getById: GetWorkLog,
     @inject(CreateWorkLog) private readonly create: CreateWorkLog,
     @inject(UpdateWorkLog) private readonly update: UpdateWorkLog,
     @inject(DeleteWorkLogs) private readonly remove: DeleteWorkLogs,
@@ -35,6 +38,15 @@ export default class WorkLogController {
     const { startDate, endDate, sortByDate } = req.query;
     const workLogs = await this.getAll.execute({ startDate, endDate, sortByDate });
     res.status(HttpStatusCode.Ok).json(workLogs);
+  };
+
+  public getWorkLog: RequestHandler<TGetWorkLogDto, WorkLog, never> = async (
+    req,
+    res,
+  ): Promise<void> => {
+    const { id } = req.params;
+    const workLog = await this.getById.execute(id);
+    res.status(HttpStatusCode.Ok).json(workLog);
   };
 
   public createWorkLog: RequestHandler<never, WorkLog, TCreateWorkLogDto> = async (

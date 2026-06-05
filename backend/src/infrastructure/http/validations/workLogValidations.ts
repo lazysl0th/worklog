@@ -6,12 +6,14 @@ import {
   createWorkLogSchema,
   updateWorkLogSchema,
   deleteWorkLogSchema,
+  getWorkLogSchema,
 } from '#/application/dtos/WorkLogDTO.js';
 
 import validate from '../middleware/validation.js';
 
 export interface IWorkLogValidations {
   getWorkLogs: RequestHandler;
+  getWorkLog: RequestHandler;
   createWorkLog: RequestHandler;
   updateWorkLog: RequestHandler;
   deleteWorkLogs: RequestHandler;
@@ -19,6 +21,7 @@ export interface IWorkLogValidations {
 
 const workLogValidations: IWorkLogValidations = {
   getWorkLogs: validate(getWorkLogsSchema),
+  getWorkLog: validate(getWorkLogSchema),
   createWorkLog: validate(createWorkLogSchema),
   updateWorkLog: validate(updateWorkLogSchema),
   deleteWorkLogs: validate(deleteWorkLogSchema),

@@ -8,7 +8,11 @@ export const workLogApi = baseApi.injectEndpoints({
       query: () => '/work-logs',
       providesTags: (result) => providesList(result, 'WorkLog'),
     }),
+    getWorkLog: build.query<TWorkLog, TWorkLog['id']>({
+      query: (id) => `/work-logs/${id}`,
+      providesTags: (_, __, id) => [{ type: 'WorkLog', id }],
+    }),
   }),
 });
 
-export const { useGetWorkLogsQuery } = workLogApi;
+export const { useGetWorkLogsQuery, useGetWorkLogQuery } = workLogApi;

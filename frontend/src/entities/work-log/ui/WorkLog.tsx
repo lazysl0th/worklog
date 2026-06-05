@@ -7,17 +7,10 @@ import { type TWorkLog } from '../model/types';
 
 interface WorkLogProps {
   readonly workLog: TWorkLog;
-  readonly workType?: ReactNode;
-  readonly contractor?: ReactNode;
   readonly className?: string;
 }
 
-export function WorkLog({
-  workLog,
-  workType,
-  contractor,
-  className = '',
-}: WorkLogProps): ReactNode {
+export function WorkLog({ workLog, className = '' }: WorkLogProps): ReactNode {
   const { t } = useTranslation();
 
   return (
@@ -51,7 +44,7 @@ export function WorkLog({
               <span className="text-sm self-start font-medium text-ui-text-heading">
                 {t('workLog.form.fields.date')}
               </span>
-              <span>{workLog.date.toLocaleString()}</span>
+              <span>{new Date(workLog.date).toLocaleDateString()}</span>
             </div>
           </div>
 
@@ -63,7 +56,7 @@ export function WorkLog({
               <span className="text-sm self-start font-medium text-ui-text-heading">
                 {t('workLog.form.fields.contractor')}
               </span>
-              <span>{contractor}</span>
+              <span>{workLog.contractor.fullName}</span>
             </div>
           </div>
         </div>
@@ -79,7 +72,7 @@ export function WorkLog({
               <span className="text-sm self-start font-medium text-ui-text-heading">
                 {t('workLog.form.fields.workType')}
               </span>
-              <div>{workType}</div>
+              <div>{workLog.workType.name}</div>
             </div>
             <div className="sm:col-span-3 flex-1 flex gap-1 flex-col">
               <span className="text-sm self-start font-medium text-ui-text-heading">
