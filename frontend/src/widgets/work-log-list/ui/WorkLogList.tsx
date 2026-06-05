@@ -1,17 +1,20 @@
 import {
   useReactTable,
   getCoreRowModel,
-  type RowSelectionState,
   type ColumnDef,
+  type Updater,
+  type RowSelectionState,
 } from '@tanstack/react-table';
-import { useMemo, useState, useCallback, type ReactNode } from 'react';
+import { useMemo, useCallback, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Contractor } from '@/entities/contractor';
 import { useGetWorkLogsQuery, useWorkLogColumns, type TWorkLog } from '@/entities/work-log';
 import { WorkType } from '@/entities/work-type';
 import { TableLoadingState, TableEmptyState } from '@/shared';
 
+import { getSelectedRows, setRowSelection } from '../model/slice';
 import { TableCheckbox } from './TableCheckbox';
 import { WorkLogTableHeader } from './WorkLogTableHeader';
 import { WorkLogTableRow } from './WorkLogTableRow';
@@ -19,7 +22,13 @@ import { WorkLogToolbar } from './WorkLogToolbar';
 
 export function WorkLogList(): ReactNode {
   const { t } = useTranslation();
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const dispatch = useDispatch();
+  const rowSelection = useSelector(getSelectedRows);
+  const onRowSelectionChange = (updater: Updater<RowSelectionState>) => {
+    const nextSelection = typeof updater === 'function' ? updater(rowSelection) : updater;
+
+    dispatch(setRowSelection(nextSelection));
+  };
 
   const { data: workLogs = [], isLoading: isLogsLoading } = useGetWorkLogsQuery();
 
@@ -63,15 +72,10 @@ export function WorkLogList(): ReactNode {
     data: workLogs,
     columns,
     state: { rowSelection },
-    onRowSelectionChange: setRowSelection,
-    getCoreRowModel: getCoreRowModel(),
+    onRowSelectionChange,
+    getRowId: (row) => row.id,
+    getCoreRowModel: useMemo(() => getCoreRowModel(), []),
   });
-
-  const selectedIds = useMemo(() => {
-    return Object.keys(rowSelection)
-      .map((index) => workLogs[Number(index)]?.id)
-      .filter((id): id is string => Boolean(id));
-  }, [rowSelection, workLogs]);
 
   if (isLogsLoading) {
     return <TableLoadingState message={t('workLogList.loading')} />;
@@ -79,22 +83,22 @@ export function WorkLogList(): ReactNode {
 
   return (
     <div className="flex flex-col gap-4">
-      <WorkLogToolbar selectedIds={selectedIds} onDeleteSuccess={() => setRowSelection({})} />
+      <WorkLogToolbar />
 
       <div className="overflow-x-auto overflow-hidden rounded-ui-container border border-ui-border-main bg-ui-bg-card shadow-xs">
-        <div className="flex flex-col min-w-250">
+        <table className="flex flex-col min-w-250">
           <WorkLogTableHeader headerGroups={table.getHeaderGroups()} />
 
-          <div className="flex flex-col divide-y divide-ui-border-light">
+          <tbody className="flex flex-col divide-y divide-ui-border-light">
             {table.getRowModel().rows.map((row) => (
-              <WorkLogTableRow key={row.id} row={row} />
+              <WorkLogTableRow key={row.id} row={row} isSelected={row.getIsSelected()} />
             ))}
 
             {table.getRowModel().rows.length === 0 && (
-              <TableEmptyState message={t('workLogList.empty')} />
+              <TableEmptyState message={t('workLog.list.empty')} />
             )}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
   );

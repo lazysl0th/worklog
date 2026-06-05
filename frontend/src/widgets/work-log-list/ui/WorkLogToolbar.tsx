@@ -1,34 +1,23 @@
 import type { ReactNode } from 'react';
 
-import { Plus, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { Button } from '@/shared';
+import { AddWorkLogsButton } from '@/features/add-work-log/ui/AddWorkLogButton';
+import { DeleteWorkLogsButton } from '@/features/delete-work-log/ui/DeleteWorkLogsButton';
 
-interface WorkLogToolbarProps {
-  selectedIds: string[];
-  onDeleteSuccess: () => void;
-}
+import { getSelectedRows } from '../model/slice';
 
-export function WorkLogToolbar({
-  selectedIds,
-  // onDeleteSuccess,
-}: WorkLogToolbarProps): ReactNode {
+export function WorkLogToolbar(): ReactNode {
   const { t } = useTranslation();
+  const selectedRows = useSelector(getSelectedRows);
+  const selectedIds = Object.keys(selectedRows);
   const hasSelected = selectedIds.length > 0;
 
   return (
     <div className="flex items-center p-4 gap-4 border border-ui-border-main bg-ui-bg-card rounded-ui-container shadow-xs">
-      <Link to="/work-logs/create">
-        <Button variant="link">
-          <Plus className="size-5 text-green-600 dark:text-green-500" onClick={() => {}} />
-        </Button>
-      </Link>
-
-      <Button variant="link">
-        <X className="size-5 text-red-600 dark:text-red-500" onClick={() => {}} />
-      </Button>
+      <AddWorkLogsButton />
+      <DeleteWorkLogsButton />
 
       <div className="flex items-center gap-3 min-h-10">
         {hasSelected && (
