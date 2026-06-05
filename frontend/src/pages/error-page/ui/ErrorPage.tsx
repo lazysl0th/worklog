@@ -53,7 +53,7 @@ export function ErrorPage(): ReactNode {
         </p>
       </div>
 
-      <div className="w-full max-w-md rounded-ui-container border border-ui-border-main bg-ui-border-light/30 p-4 font-mono text-xs text-red-600 dark:text-red-400 text-left overflow-x-auto break-words">
+      <div className="w-full max-w-md rounded-ui-container border border-ui-border-main bg-ui-border-light/30 p-4 font-mono text-xs text-red-600 dark:text-red-400 text-left overflow-x-auto wrap-break-word">
         <span className="text-gray-500 dark:text-gray-400 block mb-1 font-sans font-bold uppercase tracking-wider text-[10px]">
           {t('debugInfo', 'Служебная информация')}
         </span>

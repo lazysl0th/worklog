@@ -9,7 +9,7 @@ export enum EnumMeasurementValue {
 }
 
 export default class MeasurementUnit {
-  readonly EnumMeasurementValueSet = new Set<string>(Object.values(EnumMeasurementValue));
+  private readonly EnumMeasurementValueSet = new Set<string>(Object.values(EnumMeasurementValue));
   #value: EnumMeasurementValue;
 
   constructor(value: string) {

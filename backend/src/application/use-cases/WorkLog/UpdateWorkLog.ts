@@ -19,10 +19,10 @@ export default class UpdateWorkLog {
     const updatedWorkLog = new WorkLog({
       id: workLog.id,
       date: workLogDto.date !== undefined ? workLogDto.date : workLog.date,
-      workTypeId: workLogDto.workTypeId ?? workLog.workTypeId,
+      workType: { id: workLogDto.workTypeId ?? workLog.workType.id },
       volume: workLogDto.volume ?? workLog.volume,
       unit: workLogDto.unit ?? workLog.unit.value,
-      contractorId: workLogDto.contractorId ?? workLog.contractorId,
+      contractor: { id: workLogDto.contractorId ?? workLog.contractor.id },
       createdAt: workLog.createdAt,
       updatedAt: new Date(),
     });

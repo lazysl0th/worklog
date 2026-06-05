@@ -22,8 +22,8 @@ describe('Unit: UpdateWorkLog Use Case', () => {
     const result = await useCase.execute(dto);
 
     expect(result.date).toEqual(createMockWorkLog().date);
-    expect(result.workTypeId).toBe(createMockWorkLog().workTypeId);
-    expect(result.contractorId).toBe(createMockWorkLog().contractorId);
+    expect(result.workType.id).toBe(createMockWorkLog().workType.id);
+    expect(result.contractor.id).toBe(createMockWorkLog().contractor.id);
     expect(result.unit.value).toBe(createMockWorkLog().unit.value);
 
     expect(mockWorkLogRepository.save).toHaveBeenCalledWith(result);

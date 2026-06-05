@@ -69,10 +69,10 @@ const createMockWorkLog = () =>
   new WorkLog({
     id: workLogId,
     date: new Date('2026-06-03'),
-    workTypeId: workTypeId,
+    workType: { id: workTypeId },
     volume: 15.0,
     unit: EnumMeasurementValue.M3,
-    contractorId: contractorId,
+    contractor: { id: contractorId },
     createdAt: new Date(),
     updatedAt: new Date(),
   });
@@ -81,9 +81,17 @@ const createMockDbWorkLogRecord = () => ({
   id: workLogId,
   date: new Date('2026-06-05'),
   workTypeId: workTypeId,
+  contractorId: contractorId,
+  workType: {
+    id: workTypeId,
+    name: 'Разработка грунта',
+  },
   volume: new Decimal(15.0),
   unit: MeasurementUnit.M3,
-  contractorId: contractorId,
+  contractor: {
+    id: contractorId,
+    fullName: 'Иванов Иван Иванович',
+  },
   createdAt: new Date(),
   updatedAt: new Date(),
 });

@@ -1,6 +1,6 @@
 import { baseApi, providesList } from '@/shared';
 
-import { type TWorkType } from '../model/types';
+import type { TWorkType } from '../model/types';
 
 export const workTypeApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

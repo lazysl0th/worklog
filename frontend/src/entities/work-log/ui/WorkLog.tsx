@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, FileText, HardHat } from 'lucide-react';
+import { ArrowLeft, Calendar, FileText, HardHat, AlignLeft } from 'lucide-react';
 import { type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -24,8 +24,7 @@ export function WorkLog({
     <div
       className={`p-4 rounded-ui-container border border-ui-border-main bg-ui-bg-card shadow-xs ${className}`.trim()}
     >
-      {/* Шапка страницы */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 mb-6">
         <Link
           to="/work-logs"
           className="flex h-9 w-9 items-center justify-center rounded-ui-control border border-ui-border-main bg-ui-bg-card text-ui-text-main hover:text-ui-text-heading hover:bg-ui-bg-hover transition-colors shadow-sm"
@@ -33,41 +32,66 @@ export function WorkLog({
           <ArrowLeft size={16} />
         </Link>
         <div className="space-y-0.5 text-left">
-          <span className="text-xs font-semibold text-ui-accent-solid uppercase tracking-wider">
-            {t('meta.entry', 'Запись')} #{workLog.id}
+          <span className="text-xs font-semibold uppercase tracking-wider">
+            {t('workLog.entity.subtitle')}
           </span>
           <h2 className="text-xl font-bold tracking-wide m-0">
-            {t('title', 'Детальная информация о работе')}
+            {t('workLog.entity.title')} #{workLog.id}
           </h2>
         </div>
       </div>
 
       <div className="rounded-ui-container border border-ui-border-main bg-ui-bg-card p-6 space-y-6 text-left">
         <div className="grid gap-6 sm:grid-cols-2">
-          <div className="flex gap-4 items-start">
-            <div className="p-3 bg-ui-border-light border border-ui-border-main rounded-ui-control text-ui-accent-solid">
-              <HardHat size={20} />
+          <div className="flex gap-4 items-center">
+            <div className="p-3 bg-ui-border-light border border-ui-border-main rounded-ui-control">
+              <Calendar size={20} />
             </div>
-            <div className="space-y-1">
-              <span className="text-xs opacity-60 block">
-                {t('fields.contractor', 'Исполнитель')}
+            <div className="flex-1 flex gap-1 flex-col">
+              <span className="text-sm self-start font-medium text-ui-text-heading">
+                {t('workLog.form.fields.date')}
               </span>
-              <span className="text-sm font-medium text-ui-text-heading">{contractor}</span>
+              <span>{workLog.date.toLocaleString()}</span>
             </div>
           </div>
 
-          {/* Дата */}
-          <div className="flex gap-4 items-start">
-            <div className="p-3 bg-ui-border-light border border-ui-border-main rounded-ui-control text-ui-accent-solid">
-              <Calendar size={20} />
+          <div className="flex gap-4 items-center">
+            <div className="p-3 bg-ui-border-light border border-ui-border-main rounded-ui-control">
+              <HardHat size={20} />
             </div>
-            <div className="space-y-1">
-              <span className="text-xs opacity-60 block">
-                {t('fields.date', 'Дата выполнения работ')}
+            <div className="flex-1 flex gap-1 flex-col">
+              <span className="text-sm self-start font-medium text-ui-text-heading">
+                {t('workLog.form.fields.contractor')}
               </span>
-              <span className="text-sm font-medium text-ui-text-heading">
-                {workLog.date.toLocaleString()}
+              <span>{contractor}</span>
+            </div>
+          </div>
+        </div>
+
+        <hr className="border-ui-border-light" />
+
+        <div className="flex gap-4 items-start sm:items-center">
+          <div className="p-3 bg-ui-border-light border border-ui-border-main rounded-ui-control">
+            <FileText size={20} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-12 flex-1">
+            <div className="sm:col-span-6">
+              <span className="text-sm self-start font-medium text-ui-text-heading">
+                {t('workLog.form.fields.workType')}
               </span>
+              <div>{workType}</div>
+            </div>
+            <div className="sm:col-span-3 flex-1 flex gap-1 flex-col">
+              <span className="text-sm self-start font-medium text-ui-text-heading">
+                {t('workLog.form.fields.volume')}
+              </span>
+              <span>{workLog.volume}</span>
+            </div>
+            <div className="sm:col-span-3 flex-1 flex gap-1 flex-col">
+              <span className="text-sm self-start font-medium text-ui-text-heading">
+                {t('fields.unit', 'Ед. изм.')}
+              </span>
+              <span>{workLog.unit}</span>
             </div>
           </div>
         </div>
@@ -75,16 +99,16 @@ export function WorkLog({
         <hr className="border-ui-border-light" />
 
         <div className="flex gap-4 items-start">
-          <div className="p-3 bg-ui-border-light border border-ui-border-main rounded-ui-control text-ui-accent-solid">
-            <FileText size={20} />
+          <div className="p-3 bg-ui-border-light border border-ui-border-main rounded-ui-control">
+            <AlignLeft size={20} />
           </div>
-          <div className="space-y-1">
-            <span className="text-xs opacity-60 block">{t('fields.workType', 'Тип работ')}</span>
-            <p className="text-sm leading-relaxed">{workType}</p>
+          <div className=" flex-1 flex gap-1 flex-col">
+            <span className="text-sm self-start font-medium text-ui-text-heading">
+              {t('workLog.form.fields.description')}
+            </span>
+            <p>{workLog.description}</p>
           </div>
         </div>
-
-        <hr className="border-ui-border-light" />
       </div>
     </div>
   );
