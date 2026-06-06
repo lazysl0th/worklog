@@ -15,13 +15,14 @@
     "validation": {
       "dateRequired": "Укажите дату",
       "dateInvalid": "Некорректная дата",
+      "dateInFuture": "Дата не должна быть в будущем",
       "workTypeRequired": "Выберите вид работ",
       "volumeRequired": "Укажите объём работ",
       "volumeInvalid": "Некорректное значение объёма",
       "volumeGreaterThanZero": "Объём работ должен быть больше 0",
       "unitRequired": "Выберите единицу измерения",
-      "executorRequired": "Укажите исполнителя",
-      "executorMinLength": "Имя исполнителя должно содержать минимум 2 символа",
+      "contractorRequired": "Укажите исполнителя",
+      "contractorMinLength": "Имя исполнителя должно содержать минимум 2 символа",
       "descriptionRequired": "Укажите описание работ",
       "descriptionMaxLength": "Описание работ не должно превышать 1000 символов"
     },

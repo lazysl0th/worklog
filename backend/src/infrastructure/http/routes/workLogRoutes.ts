@@ -9,6 +9,7 @@ const createWorkLogRoutes = (
 ): Router => {
   const router = Router();
   router.get('/', workLogValidations.getWorkLogs, workLogController.getWorkLogs);
+  router.get('/units', workLogController.getUnits);
   router.get('/:id', workLogValidations.getWorkLog, workLogController.getWorkLog);
   router.post('/', workLogValidations.createWorkLog, workLogController.createWorkLog);
   router.patch('/:id', workLogValidations.updateWorkLog, workLogController.updateWorkLog);

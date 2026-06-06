@@ -1,6 +1,6 @@
 import { baseApi, providesList } from '@/shared';
 
-import type { TWorkLog } from '../model/types';
+import type { TWorkLog, TWorkTypeUnit } from '../model/types';
 
 export const workLogApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -12,7 +12,10 @@ export const workLogApi = baseApi.injectEndpoints({
       query: (id) => `/work-logs/${id}`,
       providesTags: (_, __, id) => [{ type: 'WorkLog', id }],
     }),
+    getUnits: build.query<TWorkTypeUnit[], void>({
+      query: () => 'work-logs/units',
+    }),
   }),
 });
 
-export const { useGetWorkLogsQuery, useGetWorkLogQuery } = workLogApi;
+export const { useGetWorkLogsQuery, useGetWorkLogQuery, useGetUnitsQuery } = workLogApi;

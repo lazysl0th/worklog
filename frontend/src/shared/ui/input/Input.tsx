@@ -1,29 +1,33 @@
-import { type InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
+  readonly label?: string;
+  readonly error?: string;
+  readonly ref?: Ref<HTMLInputElement>;
 }
 
-export const Input = ({ label, error, className = '', ...props }: InputProps) => (
-  <div className="flex flex-col gap-1">
-    {label && (
-      <label className="text-sm self-start font-medium text-ui-text-heading">{label}</label>
-    )}
-    <input
-      className={`
-        w-full px-3 py-2 border rounded-ui-control outline-none
-        bg-transparent transition-colors duration-200
-        text-ui-text-main placeholder:text-gray-400
-        ${
-          error
-            ? 'border-red-500 focus:border-red-500'
-            : 'border-ui-border-main focus:border-ui-accent-solid'
-        }
-        ${className}
-      `}
-      {...props}
-    />
-    {error && <span className="text-xs text-red-500">{error}</span>}
-  </div>
-);
+export function Input({ label, error, className = '', ref, ...props }: InputProps): ReactNode {
+  return (
+    <div className="flex flex-col gap-1">
+      {label && (
+        <label className="text-sm self-start font-medium text-ui-text-heading">{label}</label>
+      )}
+      <input
+        ref={ref} // Пробрасываем ref для React Hook Form
+        className={`
+                    w-full px-3 py-2 border rounded-ui-control outline-none
+                    bg-transparent transition-colors duration-200
+                    text-ui-text-main placeholder:text-gray-400
+                    ${
+                      error
+                        ? 'border-red-500 focus:border-red-500'
+                        : 'border-ui-border-main focus:border-ui-accent-solid'
+                    }
+                    ${className}
+                `}
+        {...props}
+      />
+      {error && <span className="text-xs text-red-500">{error}</span>}
+    </div>
+  );
+}
