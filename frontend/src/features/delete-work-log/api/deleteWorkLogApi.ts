@@ -1,8 +1,10 @@
 import { baseApi } from '@/shared/api';
 
+import type { IDeleteResult, IDeleteWorkLogsDto } from '../model/types';
+
 export const deleteWorkLogApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    deleteWorkLogs: build.mutation<{ count: number }, { ids: string[] }>({
+    deleteWorkLogs: build.mutation<IDeleteResult, IDeleteWorkLogsDto>({
       query: ({ ids }) => ({
         url: 'work-logs',
         method: 'DELETE',

@@ -8,7 +8,7 @@ export function AddWorkLogsButton(): ReactNode | null {
   return (
     <Link to="/work-logs/create">
       <Button variant="link">
-        <Plus className="size-5 text-green-600 dark:text-green-500" />
+        <Plus size={16} className="text-green-600 dark:text-green-500" />
       </Button>
     </Link>
   );

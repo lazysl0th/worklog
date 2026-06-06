@@ -14,7 +14,7 @@ describe('API Integration: DELETE /work-logs (Delete)', () => {
       .delete('/work-logs')
       .send({ ids: [workLogId] });
 
-    expect(response.status).toBe(HttpStatusCode.NoContent);
+    expect(response.status).toBe(HttpStatusCode.Ok);
     expect(mockWorkLogRepository.delete).toHaveBeenCalledWith([workLogId]);
   });
 

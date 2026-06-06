@@ -4,3 +4,12 @@ export { Input } from './input';
 export { Select } from './select';
 export { Button } from './button';
 export { Textarea } from './textarea';
+export { Toast, toast } from './toast';
+export {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './dialog';

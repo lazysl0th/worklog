@@ -34,7 +34,7 @@ model WorkType {
 
 model Contractor {
   id          String     @id @default(uuid())
-  fullName    String     @map("full_name")
+  fullName    String     @map("full_name") @unique
   createdAt   DateTime   @default(now()) @map("created_at")
   updatedAt   DateTime   @updatedAt @map("updated_at")
   workLogs    WorkLog[]
@@ -49,6 +49,7 @@ model WorkLog {
   workType     WorkType        @relation(fields: [workTypeId], references: [id], onDelete: Restrict)
   volume       Decimal         @db.Decimal(10, 2)
   unit         MeasurementUnit
+  description  String?
   contractorId String          @map("contractor_id")
   contractor   Contractor      @relation(fields: [contractorId], references: [id], onDelete: Restrict)
   createdAt    DateTime        @default(now()) @map("created_at")

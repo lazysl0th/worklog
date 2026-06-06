@@ -77,7 +77,7 @@ export default class WorkLogController {
   ): Promise<void> => {
     const ids = req.body.ids;
     const result = await this.remove.execute(ids);
-    res.status(HttpStatusCode.NoContent).send(result);
+    res.status(HttpStatusCode.Ok).send(result);
   };
 
   public getUnits: RequestHandler = (_, res) => {

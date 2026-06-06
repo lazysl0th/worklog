@@ -5,13 +5,12 @@ import {
   type Updater,
   type RowSelectionState,
 } from '@tanstack/react-table';
-import { useMemo, useCallback, type ReactNode } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Contractor } from '@/entities/contractor';
 import { useGetWorkLogsQuery, useWorkLogColumns, type TWorkLog } from '@/entities/work-log';
-import { WorkType } from '@/entities/work-type';
+
 import { useWorkLogParams } from '@/features/filters-work-log';
 import { TableLoadingState, TableEmptyState } from '@/shared';
 
@@ -34,27 +33,17 @@ export function WorkLogList(): ReactNode {
   const { filters, sorting, handleSortingChange } = useWorkLogParams();
 
   const { data: workLogs = [], isLoading: isLogsLoading } = useGetWorkLogsQuery(
-    sorting
+    sorting || filters
       ? {
           startDate: filters.startDate,
           endDate: filters.endDate,
-          sortBy: sorting[0].id,
-          sortDesc: sorting[0].desc ? 'true' : 'false',
+          sortBy: sorting?.[0].id,
+          sortDesc: sorting?.[0].desc ? 'true' : 'false',
         }
       : {},
   );
 
-  console.log(workLogs);
-
-  const renderWorkType = useCallback((workTypeName: string) => {
-    return <WorkType name={workTypeName} />;
-  }, []);
-
-  const renderContractor = useCallback((contractorFullName: string) => {
-    return <Contractor name={contractorFullName} />;
-  }, []);
-
-  const entityColumns = useWorkLogColumns({ renderWorkType, renderContractor });
+  const entityColumns = useWorkLogColumns();
 
   const columns = useMemo<ColumnDef<TWorkLog>[]>(
     () => [
@@ -93,10 +82,6 @@ export function WorkLogList(): ReactNode {
     enableSortingRemoval: true,
   });
 
-  if (isLogsLoading) {
-    return <TableLoadingState message={t('workLogList.loading')} />;
-  }
-  console.log(table.getState().sorting);
   return (
     <div className="flex flex-col gap-4">
       <WorkLogToolbar />
@@ -106,12 +91,16 @@ export function WorkLogList(): ReactNode {
           <WorkLogTableHeader headerGroups={table.getHeaderGroups()} />
 
           <tbody className="flex flex-col divide-y divide-ui-border-light">
-            {table.getRowModel().rows.map((row) => (
-              <WorkLogTableRow key={row.id} row={row} isSelected={row.getIsSelected()} />
-            ))}
-
-            {table.getRowModel().rows.length === 0 && (
+            {isLogsLoading ? (
+              <TableLoadingState message={t('workLog.list.loading')} />
+            ) : table.getRowModel().rows.length === 0 ? (
               <TableEmptyState message={t('workLog.list.empty')} />
+            ) : (
+              table
+                .getRowModel()
+                .rows.map((row) => (
+                  <WorkLogTableRow key={row.id} row={row} isSelected={row.getIsSelected()} />
+                ))
             )}
           </tbody>
         </table>

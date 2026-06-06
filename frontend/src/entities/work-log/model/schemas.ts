@@ -13,7 +13,7 @@ export const workLogSchema = z.object({
   volume: z.number(),
   unit: workTypeUnitSchema,
   contractor: contractorSchema,
-  description: z.string(),
+  description: z.string().optional(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -34,7 +34,7 @@ export const workLogFormSchema = workLogSchema
       return val;
     }, z.string()),
     volume: z.string(),
-    contractorId: z.uuid(),
+    contractorFullName: z.string(),
     workTypeId: z.uuid(),
   });
 
@@ -60,10 +60,7 @@ export const createWorkLogFormValuesSchema = (t: TFunction) => {
       error: t('workLog.validation.workTypeRequired'),
     }),
 
-    description: z
-      .string()
-      .min(1, { error: t('workLog.validation.descriptionRequired') })
-      .max(1000, { error: t('workLog.validation.descriptionMaxLength') }),
+    description: z.string().max(1000, { error: t('workLog.validation.descriptionMaxLength') }),
 
     volume: z
       .string()
@@ -81,7 +78,7 @@ export const createWorkLogFormValuesSchema = (t: TFunction) => {
         message: t('workLog.validation.unitRequired'),
       }),
 
-    contractorId: z.uuid({
+    contractorFullName: z.string().min(1, {
       error: t('workLog.validation.contractorRequired'),
     }),
   });

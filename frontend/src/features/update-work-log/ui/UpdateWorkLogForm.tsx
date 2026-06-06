@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { useGetWorkTypesQuery } from '@/entities';
 import {
   useGetUnitsQuery,
@@ -8,6 +10,7 @@ import {
   type TWorkLog,
   workLogFormSchema,
 } from '@/entities/work-log';
+import { toast } from '@/shared/ui';
 
 import { useUpdateWorkLogMutation } from '../api/updateWorkLogApi';
 import { mapWorkLogToForm } from '../lib/mapWorkLogToForm';
@@ -19,19 +22,22 @@ interface UpdateWorkLogFormProps {
 }
 
 export function UpdateWorkLogForm({ id, workLog, onComplete }: UpdateWorkLogFormProps): ReactNode {
+  const { t } = useTranslation();
   const { data: workTypes = [], isLoading: isTypesLoading } = useGetWorkTypesQuery();
   const { data: units = [], isLoading: isUnitsLoading } = useGetUnitsQuery();
   const [updateWorkLog, { isLoading, error }] = useUpdateWorkLogMutation();
 
   const initialData = mapWorkLogToForm(workLog);
 
-  const handleUpdate = (data: TWorkLogFormValues): void => {
-    const result = workLogFormSchema.safeParse(data);
-    if (!result.success) return;
+  const handleUpdate = async (data: TWorkLogFormValues): Promise<void> => {
     try {
-      updateWorkLog({ id, ...result.data }).unwrap();
-    } catch (error) {
-      console.log(error);
+      const result = workLogFormSchema.safeParse(data);
+      if (!result.success) return;
+      await updateWorkLog({ id, ...result.data }).unwrap();
+      toast.success(t('workLog.notifications.updateSuccess'));
+    } catch (e) {
+      console.error(e);
+      toast.error(t('workLog.notifications.updateError'));
     } finally {
       onComplete();
     }

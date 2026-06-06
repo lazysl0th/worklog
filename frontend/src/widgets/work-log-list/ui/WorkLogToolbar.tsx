@@ -16,14 +16,14 @@ export function WorkLogToolbar(): ReactNode {
   const hasSelected = selectedIds.length > 0;
 
   return (
-    <div className="flex items-center p-4 gap-4 border border-ui-border-main bg-ui-bg-card rounded-ui-container shadow-xs">
+    <div className="flex items-center flex-wrap py-2 px-4 gap-4 border border-ui-border-main bg-ui-bg-card rounded-ui-container shadow-xs">
       <AddWorkLogsButton />
       <DeleteWorkLogsButton />
 
       <div className="flex items-center gap-3 min-h-10">
         {hasSelected && (
           <span className="text-xs font-medium opacity-60 animate-fade-in">
-            {t('workLogList.selectedCount', 'Выбрано элементов: {{count}}', {
+            {t('workLog.list.selectedCount', {
               count: selectedIds.length,
             })}
           </span>

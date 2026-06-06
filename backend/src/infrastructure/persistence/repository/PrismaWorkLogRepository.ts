@@ -30,6 +30,7 @@ export class PrismaWorkLogRepository implements IWorkLogRepository {
       contractor: new Contractor(workLog.contractor),
       volume: Number(workLog.volume.toFixed(2)),
       unit: workLog.unit,
+      description: workLog.description ?? '',
     });
   }
   async getById(id: string): Promise<WorkLog | null> {
@@ -49,14 +50,10 @@ export class PrismaWorkLogRepository implements IWorkLogRepository {
         ...(endDate && { lte: new Date(endDate) }),
       };
     }
-    console.log(where);
-
-    console.log(sortBy, sortDesc);
 
     const orderBy = {
       ...(sortBy && { [sortBy]: sortDesc ? 'desc' : 'asc' }),
     };
-    console.log(orderBy);
 
     const workLogDatas = await this.prisma.client.workLog.findMany({
       where,
@@ -72,14 +69,24 @@ export class PrismaWorkLogRepository implements IWorkLogRepository {
       create: {
         ...workLog,
         workType: { connect: { id: workLog.workType.id } },
-        contractor: { connect: { id: workLog.contractor.id } },
+        contractor: {
+          connectOrCreate: {
+            where: { fullName: workLog.contractor.fullName },
+            create: { fullName: workLog.contractor.fullName },
+          },
+        },
         unit: workLog.unit.value,
       },
       update: {
         ...workLog,
         unit: workLog.unit.value,
         workType: { connect: { id: workLog.workType.id } },
-        contractor: { connect: { id: workLog.contractor.id } },
+        contractor: {
+          connectOrCreate: {
+            where: { fullName: workLog.contractor.fullName },
+            create: { fullName: workLog.contractor.fullName },
+          },
+        },
       },
       include: { workType: true, contractor: true },
     });

@@ -8,9 +8,10 @@ interface IWorkLogProps {
   workType: WorkType | { id: string };
   volume: number;
   unit: string;
-  contractor: Contractor | { id: string };
+  contractor: Contractor | { fullName: string };
   createdAt: Date;
   updatedAt: Date;
+  description: string;
 }
 
 export default class WorkLog {
@@ -19,9 +20,10 @@ export default class WorkLog {
   #workType: WorkType | { id: string };
   readonly volume: number;
   readonly unit: MeasurementUnit;
-  #contractor: Contractor | { id: string };
+  #contractor: Contractor | { fullName: string };
   readonly createdAt: Date;
   readonly updatedAt: Date;
+  readonly description: string;
 
   constructor(props: IWorkLogProps) {
     this.id = props.id;
@@ -32,13 +34,14 @@ export default class WorkLog {
     this.#contractor = props.contractor;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
+    this.description = props.description;
   }
 
   get workType(): WorkType | { id: string } {
     return this.#workType;
   }
 
-  get contractor(): Contractor | { id: string } {
+  get contractor(): Contractor | { fullName: string } {
     return this.#contractor;
   }
 
@@ -53,9 +56,10 @@ export default class WorkLog {
       contractor:
         this.#contractor instanceof Contractor
           ? this.#contractor.toJSON()
-          : { id: this.#contractor.id },
+          : { id: this.#contractor.fullName },
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      description: this.description,
     };
   }
 }

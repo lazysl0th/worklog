@@ -13,7 +13,7 @@ export const Button = ({
   const variants = {
     primary: 'bg-ui-text-heading text-ui-bg-main hover:bg-ui-text-main',
     secondary: 'bg-ui-bg-card border border-ui-border-main text-ui-text-main hover:bg-ui-bg-hover',
-    link: 'flex h-9 w-9 items-center justify-center rounded-ui-control border border-ui-border-main bg-ui-bg-card text-ui-text-main hover:text-ui-text-heading hover:bg-ui-bg-hover transition-colors shadow-sm',
+    link: 'items-center border border-ui-border-main bg-ui-bg-card text-ui-text-main hover:text-ui-text-heading hover:bg-ui-bg-hover shadow-sm',
   };
 
   return (
