@@ -22,9 +22,10 @@ export default class UpdateWorkLog {
       workType: { id: workLogDto.workTypeId ?? workLog.workType.id },
       volume: workLogDto.volume ?? workLog.volume,
       unit: workLogDto.unit ?? workLog.unit.value,
-      contractor: { id: workLogDto.contractorId ?? workLog.contractor.id },
+      contractor: { fullName: workLogDto.contractorFullName ?? workLog.contractor.fullName },
       createdAt: workLog.createdAt,
       updatedAt: new Date(),
+      description: workLogDto.description ?? workLog.description,
     });
 
     return this.workLogRepository.save(updatedWorkLog);

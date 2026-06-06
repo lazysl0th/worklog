@@ -27,7 +27,8 @@ export const createWorkLogSchema = z.object({
     workTypeId: z.uuid(),
     volume: z.coerce.number().positive(),
     unit: z.enum(Object.values(EnumMeasurementValue)),
-    contractorId: z.uuid(),
+    contractorFullName: z.string(),
+    description: z.string().optional(),
   }),
 });
 

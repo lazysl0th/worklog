@@ -19,9 +19,10 @@ export default class CreateWorkLog {
       workType: { id: workLogDto.workTypeId },
       volume: workLogDto.volume,
       unit: workLogDto.unit,
-      contractor: { id: workLogDto.contractorId },
+      contractor: { fullName: workLogDto.contractorFullName },
       createdAt: new Date(),
       updatedAt: new Date(),
+      description: workLogDto.description ?? '',
     });
 
     return this.workLogRepository.save(workLog);

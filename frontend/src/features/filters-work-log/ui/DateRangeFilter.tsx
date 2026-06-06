@@ -1,6 +1,9 @@
 import type { ChangeEvent } from 'react';
 
+import { CircleX } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+
+import { Button, Input } from '@/shared/ui';
 
 import { useWorkLogParams } from '../lib/useWorkLogSortFilter';
 
@@ -23,41 +26,37 @@ export const DateRangeFilter = () => {
   const hasActiveFilters = Boolean(filters.startDate || filters.endDate);
 
   return (
-    <div className="flex items-center gap-4 p-2 bg-white rounded-lg shadow-sm ml-auto">
-      <div className="flex items-center gap-2">
-        <label htmlFor="startDate" className="text-sm font-medium text-slate-700">
-          {t('filters.startDate', 'От:')}
-        </label>
-        <input
-          id="startDate"
-          type="date"
-          value={filters.startDate ?? ''}
-          onChange={handleStartChange}
-          className="border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
+    <div className="flex items-center gap-4 ml-auto flex-wrap justify-end">
+      <Input
+        type="date"
+        id="startDate"
+        value={filters.startDate ?? ''}
+        onChange={handleStartChange}
+        label={t('workLog.filter.startDate')}
+        className="flex-row items-center"
+      />
 
-      <div className="flex items-center gap-2">
-        <label htmlFor="endDate" className="text-sm font-medium text-slate-700">
-          {t('filters.endDate', 'До:')}
-        </label>
-        <input
-          id="endDate"
-          type="date"
-          value={filters.endDate ?? ''}
-          onChange={handleEndChange}
-          className="border border-slate-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
+      <Input
+        type="date"
+        id="endDate"
+        value={filters.endDate ?? ''}
+        onChange={handleEndChange}
+        label={t('workLog.filter.endDate')}
+        className="flex-row items-center"
+      />
 
       {hasActiveFilters && (
-        <button
-          onClick={handleClear}
+        <Button
           type="button"
-          className="px-3 py-1.5 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-md transition-colors cursor-pointer"
+          onClick={handleClear}
+          variant="link"
+          className="border-0 shadow-none! p-0!"
         >
-          {t('filters.clear', 'Очистить')}
-        </button>
+          <CircleX
+            size={16}
+            className="text-red-600 dark:text-red-500 disabled:opacity-50 transition-colors"
+          />
+        </Button>
       )}
     </div>
   );

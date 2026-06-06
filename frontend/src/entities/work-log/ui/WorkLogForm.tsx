@@ -76,8 +76,8 @@ export function WorkLogForm({
           <div className="flex-1">
             <Input
               label={t('workLog.form.fields.contractor')}
-              error={errors.contractorId?.message}
-              {...register('contractorId')}
+              error={errors.contractorFullName?.message}
+              {...register('contractorFullName')}
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ export function WorkLogForm({
       </div>
 
       <div className="flex flex-col items-end gap-4 pt-2">
-        {serverError && <p className="text-red-500 text-sm">{t('workLog.errors.serverError')}</p>}
+        {serverError && <p className="text-red-500 text-sm">{t('errors.server')}</p>}
         <Button type="submit" disabled={isSubmitting || isDictionariesLoading}>
           {isSubmitting ? t('common.loading') : submitButtonText}
         </Button>

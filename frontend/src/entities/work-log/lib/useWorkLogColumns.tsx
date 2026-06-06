@@ -1,18 +1,10 @@
 import { type ColumnDef } from '@tanstack/react-table';
-import { useMemo, type ReactNode } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { TWorkLog } from '../model/types';
 
-interface UseWorkLogColumnsProps {
-  renderWorkType: (workTypeName: string) => ReactNode;
-  renderContractor: (contractorFullName: string) => ReactNode;
-}
-
-export function useWorkLogColumns({
-  renderWorkType,
-  renderContractor,
-}: UseWorkLogColumnsProps): ColumnDef<TWorkLog>[] {
+export function useWorkLogColumns(): ColumnDef<TWorkLog>[] {
   const { t } = useTranslation();
 
   return useMemo<ColumnDef<TWorkLog>[]>(
@@ -25,21 +17,9 @@ export function useWorkLogColumns({
       {
         id: 'workType',
         header: () => t('workLog.list.columns.workType'),
-        cell: ({ row }) => renderWorkType(row.original.workType.name),
+        cell: ({ row }) => <span className="font-mono text-right w-full">{row.original.workType.name}</span>,
         enableSorting: false,
       },
-      /*{
-        accessorKey: 'description',
-        header: () => t('workLog.list.columns.description'),
-        cell: ({ row }) => (
-          <span
-            className="font-medium text-gray-900 truncate"
-            title={row.original.description || ''}
-          >
-            {row.original.description}
-          </span>
-        ),
-      },*/
       {
         accessorKey: 'volume',
         header: () => t('workLog.list.columns.volume'),
@@ -58,10 +38,10 @@ export function useWorkLogColumns({
         accessorKey: 'contractrorName',
         id: 'contractror',
         header: () => t('workLog.list.columns.contractor'),
-        cell: ({ row }) => renderContractor(row.original.contractor.fullName),
+        cell: ({ row }) => <span>{row.original.contractor.fullName}</span>,
         enableSorting: false,
       },
     ],
-    [renderWorkType, renderContractor, t],
+    [t],
   );
 }

@@ -18,7 +18,7 @@ describe('Unit: CreateWorkLog Use Case', () => {
       workTypeId: randomUUID(),
       volume: 145.678,
       unit: EnumMeasurementValue.M3,
-      contractorId: randomUUID(),
+      contractorFullName: "Contractor's Name",
     };
 
     mockWorkLogRepository.save.mockImplementation(async (workLog: WorkLog) => {
@@ -32,7 +32,7 @@ describe('Unit: CreateWorkLog Use Case', () => {
     expect(typeof result.id).toBe('string');
     expect(result.date).toEqual(dto.date);
     expect(result.workType.id).toBe(dto.workTypeId);
-    expect(result.contractor.id).toBe(dto.contractorId);
+    expect(result.contractor.fullName).toBe(dto.contractorFullName);
     expect(result.unit.value).toBe(dto.unit);
 
     expect(result.volume).toBe(145.68);

@@ -1,4 +1,4 @@
-export { WorkType, workTypeApi, useGetWorkTypesQuery } from './work-type';
+export { workTypeApi, useGetWorkTypesQuery } from './work-type';
 
 export {
   WorkLog,

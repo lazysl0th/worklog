@@ -45,7 +45,7 @@ export function WorkLogTableHeader({ headerGroups }: WorkLogTableHeaderProps): R
             {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
-                className="text-xs font-semibold uppercase tracking-wider opacity-60 overflow-hidden whitespace-nowrap"
+                className="text-xs font-semibold uppercase tracking-wider text-ui-text-heading overflow-hidden whitespace-nowrap"
               >
                 {header.isPlaceholder ? null : (
                   <div
@@ -61,17 +61,19 @@ export function WorkLogTableHeader({ headerGroups }: WorkLogTableHeaderProps): R
                         : undefined
                     }
                   >
-                    <span>{flexRender(header.column.columnDef.header, header.getContext())}</span>
-                    <span>
-                      {header.column.getCanSort() &&
-                        (header.column.getIsSorted() === 'asc' ? (
-                          <ArrowUp size={17} />
-                        ) : header.column.getIsSorted() === 'desc' ? (
-                          <ArrowDown size={17} />
-                        ) : (
-                          <ArrowDownUp size={17} />
-                        ))}
-                    </span>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                    {header.column.columnDef.id !== 'select' && (
+                      <span>
+                        {header.column.getCanSort() &&
+                          (header.column.getIsSorted() === 'asc' ? (
+                            <ArrowUp size={17} />
+                          ) : header.column.getIsSorted() === 'desc' ? (
+                            <ArrowDown size={17} />
+                          ) : (
+                            <ArrowDownUp size={17} />
+                          ))}
+                      </span>
+                    )}
                   </div>
                 )}
               </th>

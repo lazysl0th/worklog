@@ -1,1 +1,1 @@
-export { TableEmptyState } from './TableEmptyState';
+export { TableEmptyState } from './ui/TableEmptyState';

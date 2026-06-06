@@ -6,7 +6,7 @@ import { mockDeep } from 'vitest-mock-extended';
 import WorkLog from '#/domain/entities/WorkLog.js';
 import HttpStatusCode from '#/infrastructure/http/contstants/httpStatusCode.js';
 
-import { app, contractorId, mockWorkLogRepository, workTypeId } from '../../../setup.js';
+import { app, mockWorkLogRepository, workTypeId } from '../../../setup.js';
 
 describe('API Integration: POST /work-logs (Create)', () => {
   it('Happy Path: должен вернуть 201 Created через реальный контроллер', async () => {
@@ -18,7 +18,7 @@ describe('API Integration: POST /work-logs (Create)', () => {
       workTypeId: workTypeId,
       volume: 12.5,
       unit: 'M3',
-      contractorId: contractorId,
+      contractorFullName: 'contractorName',
     };
 
     const response = await request(app).post('/work-logs').send(inputDto);
