@@ -8,7 +8,7 @@ import WorkLog from '#/domain/entities/WorkLog.js';
 import WorkType from '#/domain/entities/WorkType.js';
 
 import type { BatchPayload } from '../prisma/generated/internal/prismaNamespace.js';
-import type { WorkLogGetPayload } from '../prisma/generated/models.js';
+import type { WorkLogGetPayload, WorkLogWhereInput } from '../prisma/generated/models.js';
 
 import PrismaService from '../../services/PrismaService.js';
 
@@ -40,16 +40,28 @@ export class PrismaWorkLogRepository implements IWorkLogRepository {
     return workLogData ? this.createWorLog(workLogData) : null;
   }
 
-  async getByDateRange({ startDate, endDate, sortByDate }: TGetWorkLogsDto): Promise<WorkLog[]> {
+  async getAll({ startDate, endDate, sortBy, sortDesc }: TGetWorkLogsDto): Promise<WorkLog[]> {
+    const where: WorkLogWhereInput = {};
+
+    if (startDate || endDate) {
+      where.date = {
+        ...(startDate && { gte: new Date(startDate) }),
+        ...(endDate && { lte: new Date(endDate) }),
+      };
+    }
+    console.log(where);
+
+    console.log(sortBy, sortDesc);
+
+    const orderBy = {
+      ...(sortBy && { [sortBy]: sortDesc ? 'desc' : 'asc' }),
+    };
+    console.log(orderBy);
+
     const workLogDatas = await this.prisma.client.workLog.findMany({
-      where: {
-        date: {
-          ...(startDate && { gte: startDate }),
-          ...(endDate && { lte: endDate }),
-        },
-      },
+      where,
+      orderBy,
       include: { workType: true, contractor: true },
-      orderBy: { date: sortByDate ? 'asc' : 'desc' },
     });
     return workLogDatas.map((workLogData) => this.createWorLog(workLogData));
   }

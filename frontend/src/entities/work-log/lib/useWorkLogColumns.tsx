@@ -26,6 +26,7 @@ export function useWorkLogColumns({
         id: 'workType',
         header: () => t('workLog.list.columns.workType'),
         cell: ({ row }) => renderWorkType(row.original.workType.name),
+        enableSorting: false,
       },
       /*{
         accessorKey: 'description',
@@ -45,17 +46,20 @@ export function useWorkLogColumns({
         cell: ({ row }) => (
           <span className="font-mono text-right w-full">{row.original.volume}</span>
         ),
+        enableSorting: false,
       },
       {
         accessorKey: 'unit',
         header: () => t('workLog.list.columns.unit'),
         cell: ({ row }) => <span className="text-gray-500">{row.original.unit}</span>,
+        enableSorting: false,
       },
       {
         accessorKey: 'contractrorName',
         id: 'contractror',
         header: () => t('workLog.list.columns.contractor'),
         cell: ({ row }) => renderContractor(row.original.contractor.fullName),
+        enableSorting: false,
       },
     ],
     [renderWorkType, renderContractor, t],

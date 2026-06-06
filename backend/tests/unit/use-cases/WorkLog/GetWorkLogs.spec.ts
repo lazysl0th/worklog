@@ -11,12 +11,12 @@ describe('Unit: GetWorkLogs Use Case', () => {
 
     const mockLogs = [createMockWorkLog()];
 
-    mockWorkLogRepository.getByDateRange.mockResolvedValue(mockLogs);
+    mockWorkLogRepository.getAll.mockResolvedValue(mockLogs);
 
     const result = await useCase.execute(filters);
 
     expect(result.every((workLog) => workLog instanceof WorkLog)).toBe(true);
-    expect(mockWorkLogRepository.getByDateRange).toHaveBeenCalledTimes(1);
-    expect(mockWorkLogRepository.getByDateRange).toHaveBeenCalledWith(filters);
+    expect(mockWorkLogRepository.getAll).toHaveBeenCalledTimes(1);
+    expect(mockWorkLogRepository.getAll).toHaveBeenCalledWith(filters);
   });
 });

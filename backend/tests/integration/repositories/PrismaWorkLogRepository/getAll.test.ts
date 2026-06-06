@@ -15,7 +15,7 @@ describe('Integration: PrismaWorkLogRepository.getByDateRange', () => {
 
     prismaMock.workLog.findMany.mockResolvedValue(dbRecords);
 
-    const result = await prismaWorkLogRepository.getByDateRange(filters);
+    const result = await prismaWorkLogRepository.getAll(filters);
 
     expect(result).toHaveLength(1);
     expect(result.every((workLog) => workLog instanceof WorkLog)).toBe(true);
@@ -26,7 +26,7 @@ describe('Integration: PrismaWorkLogRepository.getByDateRange', () => {
           lte: filters.endDate,
         },
       },
-      orderBy: { date: 'asc' },
+      orderBy: { date: 'desc' },
       include: { workType: true, contractor: true },
     });
   });
@@ -34,11 +34,11 @@ describe('Integration: PrismaWorkLogRepository.getByDateRange', () => {
     it('Edge Case: должен работать без фильтров и с дефолтной сортировкой (desc)', async () => {
       prismaMock.workLog.findMany.mockResolvedValue([]);
 
-      await prismaWorkLogRepository.getByDateRange({});
+      await prismaWorkLogRepository.getAll({});
 
       expect(prismaMock.workLog.findMany).toHaveBeenCalledWith({
-        where: { date: {} },
-        orderBy: { date: 'desc' },
+        where: {},
+        orderBy: {},
         include: { workType: true, contractor: true },
       });
     });
@@ -46,11 +46,11 @@ describe('Integration: PrismaWorkLogRepository.getByDateRange', () => {
     it('Edge Case: должен работать только с startDate', async () => {
       prismaMock.workLog.findMany.mockResolvedValue([]);
 
-      await prismaWorkLogRepository.getByDateRange({ startDate: filters.startDate });
+      await prismaWorkLogRepository.getAll({ startDate: filters.startDate });
 
       expect(prismaMock.workLog.findMany).toHaveBeenCalledWith({
         where: { date: { gte: filters.startDate } },
-        orderBy: { date: 'desc' },
+        orderBy: {},
         include: { workType: true, contractor: true },
       });
     });
@@ -58,11 +58,11 @@ describe('Integration: PrismaWorkLogRepository.getByDateRange', () => {
     it('Edge Case: должен работать только с endDate', async () => {
       prismaMock.workLog.findMany.mockResolvedValue([]);
 
-      await prismaWorkLogRepository.getByDateRange({ endDate: filters.endDate });
+      await prismaWorkLogRepository.getAll({ endDate: filters.endDate });
 
       expect(prismaMock.workLog.findMany).toHaveBeenCalledWith({
         where: { date: { lte: filters.endDate } },
-        orderBy: { date: 'desc' },
+        orderBy: {},
         include: { workType: true, contractor: true },
       });
     });

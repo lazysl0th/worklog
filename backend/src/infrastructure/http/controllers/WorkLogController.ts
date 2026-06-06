@@ -36,8 +36,8 @@ export default class WorkLogController {
     req,
     res,
   ): Promise<void> => {
-    const { startDate, endDate, sortByDate } = req.query;
-    const workLogs = await this.getAll.execute({ startDate, endDate, sortByDate });
+    const { startDate, endDate, sortBy, sortDesc } = req.query;
+    const workLogs = await this.getAll.execute({ startDate, endDate, sortBy, sortDesc });
     res.status(HttpStatusCode.Ok).json(workLogs);
   };
 

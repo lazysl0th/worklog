@@ -88,3 +88,10 @@ export const createWorkLogFormValuesSchema = (t: TFunction) => {
 };
 
 export const updateWorkLogSchema = workLogFormSchema.extend({ id: workLogSchema.shape.id });
+
+export const workLogFilterSortSchema = z.object({
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  sortBy: z.string().optional(),
+  sortDesc: z.enum(['true', 'false']).optional(),
+});
