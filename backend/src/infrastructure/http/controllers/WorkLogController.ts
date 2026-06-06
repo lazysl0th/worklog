@@ -18,6 +18,7 @@ import DeleteWorkLogs from '#/application/use-cases/WorkLog/DeleteWorkLogs.js';
 import GetWorkLog from '#/application/use-cases/WorkLog/GetWorkLog.js';
 import GetWorkLogs from '#/application/use-cases/WorkLog/GetWorkLogs.js';
 import UpdateWorkLog from '#/application/use-cases/WorkLog/UpdateWorkLog.js';
+import { MeasurementUnit } from '#/infrastructure/persistence/prisma/generated/enums.js';
 
 import HttpStatusCode from '../contstants/httpStatusCode.js';
 
@@ -77,5 +78,10 @@ export default class WorkLogController {
     const ids = req.body.ids;
     const result = await this.remove.execute(ids);
     res.status(HttpStatusCode.NoContent).send(result);
+  };
+
+  public getUnits: RequestHandler = (_, res) => {
+    const units = Object.values(MeasurementUnit);
+    res.status(HttpStatusCode.Ok).send(units);
   };
 }

@@ -1,21 +1,19 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 
-import { contractorSchema, workTypeSchema } from '@/shared/api';
-
-export const workTypeUnitSchema = z.enum(['M3', 'M2', 'M', 'TON', 'KG', 'PCS', 'SECTION']);
-
-export const workLogSchema = z.object({
-  id: z.uuid(),
-  date: z.date(),
-  workType: workTypeSchema,
-  volume: z.number(),
-  unit: workTypeUnitSchema,
-  contractor: contractorSchema,
-  description: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
+import type {
+  createWorkLogFormValuesSchema,
+  updateWorkLogSchema,
+  workLogFormSchema,
+  workLogSchema,
+  workTypeUnitSchema,
+} from './schemas';
 
 export type TWorkTypeUnit = z.infer<typeof workTypeUnitSchema>;
 
 export type TWorkLog = z.infer<typeof workLogSchema>;
+
+export type TWorkLogCreateDto = z.infer<typeof workLogFormSchema>;
+
+export type TWorkLogUpdateDto = z.infer<typeof updateWorkLogSchema>;
+
+export type TWorkLogFormValues = z.input<ReturnType<typeof createWorkLogFormValuesSchema>>;

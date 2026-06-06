@@ -3,10 +3,20 @@ export { WorkLog } from './ui/WorkLog';
 export {
   type TWorkLog,
   type TWorkTypeUnit,
-  workLogSchema,
-  workTypeUnitSchema,
+  type TWorkLogFormValues,
+  type TWorkLogCreateDto,
+  type TWorkLogUpdateDto,
 } from './model/types';
 
-export { workLogApi, useGetWorkLogsQuery, useGetWorkLogQuery } from './api/workLogApi';
+export { workLogSchema, workLogFormSchema, workTypeUnitSchema } from './model/schemas';
+
+export {
+  workLogApi,
+  useGetWorkLogsQuery,
+  useGetWorkLogQuery,
+  useGetUnitsQuery,
+} from './api/workLogApi';
 
 export { useWorkLogColumns } from './lib/useWorkLogColumns';
+
+export { WorkLogForm } from './ui/WorkLogForm';
