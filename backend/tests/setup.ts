@@ -114,7 +114,8 @@ const createDbMockWorkTypeRecord = () => ({
 const filters: TGetWorkLogsDto = {
   startDate: new Date('2026-06-01'),
   endDate: new Date('2026-06-05'),
-  sortByDate: 'asc' as const,
+  sortBy: 'date',
+  sortDesc: true,
 };
 
 beforeAll(() => {

@@ -8,7 +8,12 @@ export {
   type TWorkLogUpdateDto,
 } from './model/types';
 
-export { workLogSchema, workLogFormSchema, workTypeUnitSchema } from './model/schemas';
+export {
+  workLogSchema,
+  workLogFormSchema,
+  workTypeUnitSchema,
+  workLogFilterSortSchema,
+} from './model/schemas';
 
 export {
   workLogApi,

@@ -12,7 +12,12 @@ export const getWorkLogsSchema = z.object({
   query: z.object({
     startDate: z.coerce.date().optional(),
     endDate: z.coerce.date().optional(),
-    sortByDate: z.enum(['asc', 'desc']).optional(),
+    sortBy: z.string().optional(),
+    sortDesc: z.preprocess((val) => {
+      if (val === 'true') return true;
+      if (val === 'false') return false;
+      return val;
+    }, z.boolean().optional()),
   }),
 });
 

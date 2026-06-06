@@ -3,8 +3,9 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { AddWorkLogsButton } from '@/features/add-work-log/ui/AddWorkLogButton';
-import { DeleteWorkLogsButton } from '@/features/delete-work-log/ui/DeleteWorkLogsButton';
+import { AddWorkLogsButton } from '@/features/add-work-log';
+import { DeleteWorkLogsButton } from '@/features/delete-work-log';
+import { DateRangeFilter } from '@/features/filters-work-log';
 
 import { getSelectedRows } from '../model/slice';
 
@@ -28,7 +29,7 @@ export function WorkLogToolbar(): ReactNode {
           </span>
         )}
       </div>
-      <div className="flex items-center"></div>
+      <DateRangeFilter />
     </div>
   );
 }

@@ -35,8 +35,6 @@ export const WorkLogTableRow = memo(({ row, isSelected }: WorkLogTableRowProps):
     })
     .join(' ');
 
-  //const isSelected = row.getIsSelected();
-
   return (
     <tr
       style={{ gridTemplateColumns }}

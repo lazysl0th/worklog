@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Contractor } from '@/entities/contractor';
 import { useGetWorkLogsQuery, useWorkLogColumns, type TWorkLog } from '@/entities/work-log';
 import { WorkType } from '@/entities/work-type';
+import { useWorkLogParams } from '@/features/filters-work-log';
 import { TableLoadingState, TableEmptyState } from '@/shared';
 
 import { getSelectedRows, setRowSelection } from '../model/slice';
@@ -30,7 +31,20 @@ export function WorkLogList(): ReactNode {
     dispatch(setRowSelection(nextSelection));
   };
 
-  const { data: workLogs = [], isLoading: isLogsLoading } = useGetWorkLogsQuery();
+  const { filters, sorting, handleSortingChange } = useWorkLogParams();
+
+  const { data: workLogs = [], isLoading: isLogsLoading } = useGetWorkLogsQuery(
+    sorting
+      ? {
+          startDate: filters.startDate,
+          endDate: filters.endDate,
+          sortBy: sorting[0].id,
+          sortDesc: sorting[0].desc ? 'true' : 'false',
+        }
+      : {},
+  );
+
+  console.log(workLogs);
 
   const renderWorkType = useCallback((workTypeName: string) => {
     return <WorkType name={workTypeName} />;
@@ -71,16 +85,18 @@ export function WorkLogList(): ReactNode {
   const table = useReactTable({
     data: workLogs,
     columns,
-    state: { rowSelection },
+    state: { rowSelection, sorting },
     onRowSelectionChange,
     getRowId: (row) => row.id,
     getCoreRowModel: useMemo(() => getCoreRowModel(), []),
+    onSortingChange: handleSortingChange,
+    enableSortingRemoval: true,
   });
 
   if (isLogsLoading) {
     return <TableLoadingState message={t('workLogList.loading')} />;
   }
-
+  console.log(table.getState().sorting);
   return (
     <div className="flex flex-col gap-4">
       <WorkLogToolbar />
