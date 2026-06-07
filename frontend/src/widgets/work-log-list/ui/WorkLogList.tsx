@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useGetWorkLogsQuery, useWorkLogColumns, type TWorkLog } from '@/entities/work-log';
-
 import { useWorkLogParams } from '@/features/filters-work-log';
 import { TableLoadingState, TableEmptyState } from '@/shared';
 
@@ -92,7 +91,7 @@ export function WorkLogList(): ReactNode {
 
           <tbody className="flex flex-col divide-y divide-ui-border-light">
             {isLogsLoading ? (
-              <TableLoadingState message={t('workLog.list.loading')} />
+              <TableLoadingState message={t('common.loading')} />
             ) : table.getRowModel().rows.length === 0 ? (
               <TableEmptyState message={t('workLog.list.empty')} />
             ) : (

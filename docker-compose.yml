@@ -28,8 +28,8 @@ services:
     ports:
       - '3001:3001'
     environment:
-      - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:root@postgres_db:5432/worklog_db?schema=public
+      - NODE_ENV=${NODE_ENV}
+      - DATABASE_URL=${DATABASE_URL}
     depends_on:
       postgres_db:
         condition: service_healthy

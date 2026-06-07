@@ -17,7 +17,7 @@ export function useWorkLogColumns(): ColumnDef<TWorkLog>[] {
       {
         id: 'workType',
         header: () => t('workLog.list.columns.workType'),
-        cell: ({ row }) => <span className="font-mono text-right w-full">{row.original.workType.name}</span>,
+        cell: ({ row }) => <span className="font-mono w-full">{row.original.workType.name}</span>,
         enableSorting: false,
       },
       {
@@ -31,7 +31,7 @@ export function useWorkLogColumns(): ColumnDef<TWorkLog>[] {
       {
         accessorKey: 'unit',
         header: () => t('workLog.list.columns.unit'),
-        cell: ({ row }) => <span className="text-gray-500">{row.original.unit}</span>,
+        cell: ({ row }) => <span>{row.original.unit}</span>,
         enableSorting: false,
       },
       {
