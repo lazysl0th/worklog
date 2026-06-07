@@ -8,6 +8,7 @@ export default defineConfig({
   schema: 'src/infrastructure/persistence/prisma/schema.prisma',
   migrations: {
     path: 'src/infrastructure/persistence/prisma/migrations',
+    seed: 'npx tsx src/infrastructure/persistence/prisma/seed.ts',
   },
   datasource: {
     url: process.env.DATABASE_URL,

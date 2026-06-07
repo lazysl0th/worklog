@@ -20,7 +20,7 @@ export function Textarea({
         <label className="text-sm self-start font-medium text-ui-text-heading">{label}</label>
       )}
       <textarea
-        ref={ref} // Пробрасываем ref
+        ref={ref}
         className={`
                     w-full px-3 py-2 border rounded-ui-control outline-none
                     bg-transparent transition-colors duration-200

@@ -43,19 +43,18 @@ export function ErrorPage(): ReactNode {
 
       <div className="space-y-2 max-w-md">
         <h3 className="text-xl font-semibold text-ui-text-heading tracking-wide">
-          {t('title', 'Что-то пошло не так')}
+          {t('pages.error.title')}
         </h3>
         <p className="text-sm">
           {t(
-            'description',
-            'Произошла критическая ошибка при работе с журналом работ. Наша инженерная команда уже уведомлена.',
+            'pages.error.description'
           )}
         </p>
       </div>
 
       <div className="w-full max-w-md rounded-ui-container border border-ui-border-main bg-ui-border-light/30 p-4 font-mono text-xs text-red-600 dark:text-red-400 text-left overflow-x-auto wrap-break-word">
         <span className="text-gray-500 dark:text-gray-400 block mb-1 font-sans font-bold uppercase tracking-wider text-[10px]">
-          {t('debugInfo', 'Служебная информация')}
+          {t('pages.error.debugInfo')}
         </span>
         {errorMessage}
       </div>
@@ -65,7 +64,7 @@ export function ErrorPage(): ReactNode {
         className="flex cursor-pointer items-center gap-2 rounded-ui-control bg-ui-accent-solid px-5 py-3 text-sm font-medium text-white transition-all duration-200 hover:opacity-90 active:scale-98"
       >
         <RotateCcw size={16} />
-        {t('actions.retry', 'Повторить попытку')}
+        {t('pages.error.retry')}
       </button>
     </div>
   );
