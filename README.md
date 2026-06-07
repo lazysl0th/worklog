@@ -21,7 +21,6 @@
 - **База данных & ORM:** PostgreSQL (v18) + Prisma ORM
 - **Архитектура:** Clean Architecture (Domain -> Application -> Infrastructure)
 - **Валидация данных:** Zod
-- **Аутентификация:** Passport.js (JWT в защищенных `httpOnly` cookies)
 
 ### Фронтенд (`frontend/`)
 
