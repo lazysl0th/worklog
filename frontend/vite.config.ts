@@ -8,5 +8,4 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
-  base: '/',
 });
