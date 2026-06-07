@@ -45,11 +45,7 @@ export function ErrorPage(): ReactNode {
         <h3 className="text-xl font-semibold text-ui-text-heading tracking-wide">
           {t('pages.error.title')}
         </h3>
-        <p className="text-sm">
-          {t(
-            'pages.error.description'
-          )}
-        </p>
+        <p className="text-sm">{t('pages.error.description')}</p>
       </div>
 
       <div className="w-full max-w-md rounded-ui-container border border-ui-border-main bg-ui-border-light/30 p-4 font-mono text-xs text-red-600 dark:text-red-400 text-left overflow-x-auto wrap-break-word">
